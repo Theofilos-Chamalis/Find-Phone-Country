@@ -1,4 +1,4 @@
-package com.findphonecountry;
+package com.theofilos.chamalis.findphonecountry;
 
 import com.facebook.react.ReactActivity;
 
