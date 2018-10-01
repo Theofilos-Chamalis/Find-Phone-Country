@@ -1,14 +1,4 @@
-import {
-  Container,
-  Text,
-  Content,
-  Icon,
-  Form,
-  Item,
-  Label,
-  Input,
-  Button
-} from 'native-base';
+import { Container, Text, Icon, Form, Item, Input, Button } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, View, StatusBar, Image, Keyboard } from 'react-native';
 

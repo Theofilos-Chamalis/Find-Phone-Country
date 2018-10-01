@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import { createTabNavigator, createStackNavigator } from 'react-navigation';
+import React from 'react';
 import { View, TouchableWithoutFeedback } from 'react-native';
 import { Icon } from 'native-base';
 
-const navigationOptions = ({ navigation }) => {
+const navOptions = ({ navigation }) => {
   return {
     headerTitle: 'Find Phone Country',
     headerStyle: {
@@ -30,4 +29,4 @@ const navigationOptions = ({ navigation }) => {
   };
 };
 
-export default navigationOptions;
+export default navOptions;
