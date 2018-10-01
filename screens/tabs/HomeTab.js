@@ -56,6 +56,12 @@ export default class HomeTab extends Component {
     this.setState({ keyboardActive: false });
   });
 
+  componentWillUnmount = () => {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+    this.setState({ keyboardActive: false });
+  };
+
   render() {
     const buttonGroup = this.state.keyboardActive ? null : (
       <View style={styles.buttonGroup}>
