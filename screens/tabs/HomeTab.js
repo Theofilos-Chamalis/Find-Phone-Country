@@ -1,12 +1,21 @@
-import { Container, Text, Icon, Form, Item, Input, Button } from 'native-base';
+import { Container, Text, Icon, Button } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet, View, StatusBar, Image, Keyboard } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  StatusBar,
+  Image,
+  Keyboard,
+  TextInput
+} from 'react-native';
+import { parseNumber } from 'libphonenumber-js';
 
 export default class HomeTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      keyboardActive: false
+      keyboardActive: false,
+      phone: ''
     };
   }
 
@@ -52,6 +61,16 @@ export default class HomeTab extends Component {
     this.setState({ keyboardActive: false });
   };
 
+  onChangeFormNumber = text => {
+    this.setState({
+      phone: text.replace(/[^0-9]/g, '')
+    });
+  };
+
+  onSubmitFormNumber = () => {
+    alert(this.state.phone);
+  };
+
   render() {
     const buttonGroup = this.state.keyboardActive ? null : (
       <View style={styles.buttonGroup}>
@@ -59,11 +78,21 @@ export default class HomeTab extends Component {
           <Icon name="ios-contacts" />
           <Text>LOAD</Text>
         </Button>
-        <Button iconLeft light>
+        <Button
+          iconLeft
+          light
+          onPress={() => {
+            this.onSubmitFormNumber();
+          }}>
           <Icon name="ios-search" />
           <Text>FIND</Text>
         </Button>
-        <Button iconLeft light>
+        <Button
+          iconLeft
+          light
+          onPress={() => {
+            this.setState({ phone: '' });
+          }}>
           <Icon name="ios-trash" />
           <Text>CLEAR</Text>
         </Button>
@@ -89,14 +118,23 @@ export default class HomeTab extends Component {
               ? styles.formStyleKeyboardUp
               : styles.formStyle
           }>
-          <Form>
-            <Item>
-              <Input
-                style={{ textAlign: 'center', color: 'white' }}
-                placeholder="Enter Phone Number"
-              />
-            </Item>
-          </Form>
+          <TextInput
+            style={styles.inputFormNumberStyle}
+            keyboardType="numeric"
+            onChangeText={enteredNumber =>
+              this.onChangeFormNumber(enteredNumber)
+            }
+            placeholder="Enter Phone Number"
+            autoCapitalize={'none'}
+            placeholderTextColor="#dedede"
+            onSubmitEditing={() => this.onSubmitFormNumber()}
+            selectionColor="red"
+            returnKeyType="search"
+            returnKeyLabel="Find"
+            underlineColorAndroid="white"
+            value={this.state.phone}
+            maxLength={16}
+          />
         </View>
 
         <View style={styles.infoGroup}>
@@ -157,6 +195,10 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     marginLeft: 40,
     marginRight: 50
+  },
+  inputFormNumberStyle: {
+    textAlign: 'center',
+    color: 'white'
   },
   formStyleKeyboardUp: {
     flex: 1,
