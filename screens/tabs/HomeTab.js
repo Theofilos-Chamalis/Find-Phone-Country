@@ -9,12 +9,18 @@ import {
   TextInput
 } from 'react-native';
 
+import fetchNumberInfo from '../../api/fetchNumberInfo';
+import capitalizeFirstLetter from '../../utils/stringUtils';
+
 export default class HomeTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
       keyboardActive: false,
-      phone: ''
+      phone: '',
+      carrier: '',
+      countryOfOrigin: '',
+      phoneType: ''
     };
   }
 
@@ -66,8 +72,42 @@ export default class HomeTab extends Component {
     });
   };
 
+  onClearFormNumber = () => {
+    this.setState({
+      phone: '',
+      carrier: '',
+      countryOfOrigin: '',
+      phoneType: ''
+    });
+  };
+
   onSubmitFormNumber = () => {
-    alert(this.state.phone);
+    if (this.state.phone.length > 5) {
+      fetchNumberInfo(this.state.phone).then(apiResponse => {
+        if (apiResponse === 'error') {
+          alert('Please Check your internet connection!');
+        } else {
+          console.log(apiResponse);
+          if (apiResponse.valid) {
+            this.setState({
+              carrier: apiResponse.carrier
+                ? capitalizeFirstLetter(apiResponse.carrier)
+                : 'Not Available',
+              countryOfOrigin: apiResponse.location
+                ? capitalizeFirstLetter(apiResponse.location) +
+                  ', ' +
+                  capitalizeFirstLetter(apiResponse.country_name)
+                : capitalizeFirstLetter(apiResponse.country_name),
+              phoneType: capitalizeFirstLetter(apiResponse.line_type)
+            });
+          } else {
+            alert('Please enter a valid phone number!');
+          }
+        }
+      });
+    } else {
+      alert('Please enter a valid phone number!');
+    }
   };
 
   render() {
@@ -90,7 +130,7 @@ export default class HomeTab extends Component {
           iconLeft
           light
           onPress={() => {
-            this.setState({ phone: '' });
+            this.onClearFormNumber();
           }}>
           <Icon name="ios-trash" />
           <Text>CLEAR</Text>
@@ -143,7 +183,8 @@ export default class HomeTab extends Component {
                 ? styles.infoTextKeyboardUp
                 : styles.infoText
             }>
-            Country Of Origin:{' '}
+            Country Of Origin:
+            {this.state.countryOfOrigin ? ' ' + this.state.countryOfOrigin : ''}
           </Text>
           <Text
             style={
@@ -151,7 +192,8 @@ export default class HomeTab extends Component {
                 ? styles.infoTextKeyboardUp
                 : styles.infoText
             }>
-            Phone Type:{' '}
+            Phone Type:
+            {this.state.phoneType ? ' ' + this.state.phoneType : ''}
           </Text>
           <Text
             style={
@@ -159,7 +201,8 @@ export default class HomeTab extends Component {
                 ? styles.infoTextKeyboardUp
                 : styles.infoText
             }>
-            Mobile Carrier:{' '}
+            Mobile Carrier:
+            {this.state.carrier ? ' ' + this.state.carrier : ''}
           </Text>
         </View>
 
@@ -191,7 +234,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'center',
     minWidth: '80%',
-    paddingBottom: 16,
+    paddingBottom: 8,
     marginLeft: 40,
     marginRight: 50
   },
@@ -211,7 +254,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
-    paddingBottom: 16
+    paddingBottom: 12
   },
   infoTextKeyboardUp: {
     color: 'white',
