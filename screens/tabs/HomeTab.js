@@ -8,7 +8,6 @@ import {
   Keyboard,
   TextInput
 } from 'react-native';
-import { parseNumber } from 'libphonenumber-js';
 
 export default class HomeTab extends Component {
   constructor(props) {
