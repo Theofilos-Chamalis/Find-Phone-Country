@@ -25,8 +25,23 @@ const navOptions = ({ navigation }) => {
         />
       </TouchableWithoutFeedback>
     ),
-    headerLeft: <View />
+    headerLeft: backButton(navigation)
   };
+};
+
+const backButton = navigation => {
+  if (navigation.state.routeName === 'About') {
+    return (
+      <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+        <Icon
+          name="ios-arrow-back"
+          style={{ paddingLeft: 16, color: 'white' }}
+        />
+      </TouchableWithoutFeedback>
+    );
+  } else {
+    return <View />;
+  }
 };
 
 export default navOptions;
