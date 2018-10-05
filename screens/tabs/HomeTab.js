@@ -6,7 +6,8 @@ import {
   StatusBar,
   Image,
   Keyboard,
-  TextInput
+  TextInput,
+  Alert
 } from 'react-native';
 
 import fetchNumberInfo from '../../api/fetchNumberInfo';
@@ -85,7 +86,7 @@ export default class HomeTab extends Component {
     if (this.state.phone.length > 5) {
       fetchNumberInfo(this.state.phone).then(apiResponse => {
         if (apiResponse === 'error') {
-          alert('Please Check your internet connection!');
+          Alert.alert('Error', 'Please Check your internet connection!');
         } else {
           console.log(apiResponse);
           if (apiResponse.valid) {
@@ -101,12 +102,18 @@ export default class HomeTab extends Component {
               phoneType: capitalizeFirstLetter(apiResponse.line_type)
             });
           } else {
-            alert('Please enter a valid phone number!');
+            Alert.alert(
+              'Error',
+              'Please enter a valid phone number with the appropriate country code!'
+            );
           }
         }
       });
     } else {
-      alert('Please enter a valid phone number!');
+      Alert.alert(
+        'Error',
+        'Please enter a valid phone number with the appropriate country code!'
+      );
     }
   };
 
