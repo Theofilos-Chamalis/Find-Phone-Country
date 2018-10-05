@@ -86,7 +86,7 @@ export default class HomeTab extends Component {
     if (this.state.phone.length > 5) {
       fetchNumberInfo(this.state.phone).then(apiResponse => {
         if (apiResponse === 'error') {
-          Alert.alert('Error', 'Please Check your internet connection!');
+          Alert.alert('Error', 'Please check your internet connection!');
         } else {
           console.log(apiResponse);
           if (apiResponse.valid) {
