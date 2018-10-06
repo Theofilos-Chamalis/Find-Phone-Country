@@ -29,7 +29,7 @@ const navOptions = ({ navigation }) => {
   };
 };
 
-const backButton = navigation => {
+const backButton = (navigation) => {
   if (navigation.state.routeName === 'About') {
     return (
       <TouchableWithoutFeedback onPress={() => navigation.goBack()}>

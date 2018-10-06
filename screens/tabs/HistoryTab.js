@@ -2,12 +2,25 @@ import { Container, Text, Content, Icon } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, View, StatusBar } from 'react-native';
 
+import { getAllRecords } from '../../db/asyncStorageProvider';
+
 export default class PlanetTab extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => {
       return <Icon name="ios-time-outline" style={{ color: tintColor }} />;
     }
   };
+
+  didFocusSubscription = this.props.navigation.addListener('didFocus', () => {
+    getAllRecords()
+      .then((results) => {
+        console.log('Retrieving all records:');
+        console.log(results);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
 
   render() {
     return (

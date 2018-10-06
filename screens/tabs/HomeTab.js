@@ -12,6 +12,7 @@ import {
 
 import fetchNumberInfo from '../../api/fetchNumberInfo';
 import capitalizeFirstLetter from '../../utils/stringUtils';
+import { saveRecord } from '../../db/asyncStorageProvider';
 
 export default class HomeTab extends Component {
   constructor(props) {
@@ -67,7 +68,7 @@ export default class HomeTab extends Component {
     this.setState({ keyboardActive: false });
   };
 
-  onChangeFormNumber = text => {
+  onChangeFormNumber = (text) => {
     this.setState({
       phone: text.replace(/[^0-9]/g, '')
     });
@@ -84,23 +85,32 @@ export default class HomeTab extends Component {
 
   onSubmitFormNumber = () => {
     if (this.state.phone.length > 5) {
-      fetchNumberInfo(this.state.phone).then(apiResponse => {
+      fetchNumberInfo(this.state.phone).then((apiResponse) => {
         if (apiResponse === 'error') {
           Alert.alert('Error', 'Please check your internet connection!');
         } else {
-          console.log(apiResponse);
           if (apiResponse.valid) {
-            this.setState({
-              carrier: apiResponse.carrier
-                ? capitalizeFirstLetter(apiResponse.carrier)
-                : 'Not Available',
-              countryOfOrigin: apiResponse.location
-                ? capitalizeFirstLetter(apiResponse.location) +
-                  ', ' +
-                  capitalizeFirstLetter(apiResponse.country_name)
-                : capitalizeFirstLetter(apiResponse.country_name),
-              phoneType: capitalizeFirstLetter(apiResponse.line_type)
-            });
+            this.setState(
+              {
+                carrier: apiResponse.carrier
+                  ? capitalizeFirstLetter(apiResponse.carrier)
+                  : 'Not Available',
+                countryOfOrigin: apiResponse.location
+                  ? capitalizeFirstLetter(apiResponse.location) +
+                    ', ' +
+                    capitalizeFirstLetter(apiResponse.country_name)
+                  : capitalizeFirstLetter(apiResponse.country_name),
+                phoneType: capitalizeFirstLetter(apiResponse.line_type)
+              },
+              () => {
+                saveRecord({
+                  phone: this.state.phone,
+                  carrier: this.state.carrier,
+                  countryOfOrigin: this.state.countryOfOrigin,
+                  phoneType: this.state.phoneType
+                });
+              }
+            );
           } else {
             Alert.alert(
               'Error',
@@ -167,7 +177,7 @@ export default class HomeTab extends Component {
           <TextInput
             style={styles.inputFormNumberStyle}
             keyboardType="numeric"
-            onChangeText={enteredNumber =>
+            onChangeText={(enteredNumber) =>
               this.onChangeFormNumber(enteredNumber)
             }
             placeholder="Enter Phone Number"

@@ -1,4 +1,4 @@
-const capitalizeFirstLetter = str => {
+const capitalizeFirstLetter = (str) => {
   str = str.split(' ');
 
   for (let i = 0, x = str.length; i < x; i++) {
