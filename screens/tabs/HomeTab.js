@@ -9,6 +9,7 @@ import {
   TextInput,
   Alert
 } from 'react-native';
+import { selectContactPhone } from 'react-native-select-contact';
 
 import fetchNumberInfo from '../../api/fetchNumberInfo';
 import capitalizeFirstLetter from '../../utils/stringUtils';
@@ -83,6 +84,22 @@ export default class HomeTab extends Component {
     });
   };
 
+  onLoadContacts = () => {
+    return selectContactPhone().then((selection) => {
+      if (!selection) {
+        return null;
+      }
+
+      let { selectedPhone } = selection;
+      let selectedPhoneNumber = selectedPhone.number;
+
+      this.setState({
+        phone: selectedPhoneNumber.toString()
+      });
+      return selectedPhone.number;
+    });
+  };
+
   onSubmitFormNumber = () => {
     if (this.state.phone.length > 5) {
       fetchNumberInfo(this.state.phone).then((apiResponse) => {
@@ -130,7 +147,12 @@ export default class HomeTab extends Component {
   render() {
     const buttonGroup = this.state.keyboardActive ? null : (
       <View style={styles.buttonGroup}>
-        <Button iconLeft light>
+        <Button
+          iconLeft
+          light
+          onPress={() => {
+            this.onLoadContacts();
+          }}>
           <Icon name="ios-contacts" />
           <Text>LOAD</Text>
         </Button>

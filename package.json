@@ -12,6 +12,8 @@
     "native-base": "^2.8.0",
     "react": "16.5.0",
     "react-native": "0.57.1",
+    "react-native-action-sheet": "^2.1.0",
+    "react-native-select-contact": "^1.1.1",
     "react-native-timeline-listview": "^0.2.3",
     "react-native-vector-icons": "^5.0.0",
     "react-navigation": "^2.17.0"
