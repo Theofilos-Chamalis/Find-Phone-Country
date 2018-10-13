@@ -30,7 +30,6 @@ Downloads
 
 To be added
 
----
 <br>
 
 ## Quick Start
