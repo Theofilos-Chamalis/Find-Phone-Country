@@ -19,7 +19,7 @@ export default class HistoryTab extends Component {
 
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => {
-      return <Icon name="ios-time-outline" style={{ color: tintColor }} />;
+      return <Icon name="ios-time" style={{ color: tintColor }} />;
     }
   };
 

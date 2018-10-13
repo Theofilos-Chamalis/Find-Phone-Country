@@ -1,4 +1,4 @@
-import { Container, Text, Icon, Button } from 'native-base';
+import { Text, Icon, Button } from 'native-base';
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -29,7 +29,7 @@ export default class HomeTab extends Component {
 
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => {
-      return <Icon name="ios-home-outline" style={{ color: tintColor }} />;
+      return <Icon name="ios-home" style={{ color: tintColor }} />;
     }
   };
 
@@ -162,7 +162,7 @@ export default class HomeTab extends Component {
           onPress={() => {
             this.onSubmitFormNumber();
           }}>
-          <Icon name="ios-search" />
+          <Icon name="search" />
           <Text>FIND</Text>
         </Button>
         <Button
@@ -171,14 +171,14 @@ export default class HomeTab extends Component {
           onPress={() => {
             this.onClearFormNumber();
           }}>
-          <Icon name="ios-trash" />
+          <Icon name="trash" />
           <Text>CLEAR</Text>
         </Button>
       </View>
     );
 
     return (
-      <Container style={styles.containerStyle}>
+      <View style={styles.containerStyle}>
         <StatusBar backgroundColor="#B71C1C" />
 
         <Image
@@ -246,7 +246,7 @@ export default class HomeTab extends Component {
         </View>
 
         {buttonGroup}
-      </Container>
+      </View>
     );
   }
 }
