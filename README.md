@@ -1,5 +1,6 @@
 # Find-Phone-Country
 A React Native based mobile app for retrieving information about phone numbers.
+This app was designed as a port of the already existing Find Phone Country Android Application which was written in the native Java/Android Studio based approach, and will replace the version 2.5 with the revamped 3.0+ . This app could be also compiled for iOS since it is written using React Native and uploaded in the Apple App Store.
 
 ## Features
 * Identify the country and city of the caller based on the phone type
@@ -10,7 +11,6 @@ A React Native based mobile app for retrieving information about phone numbers.
 
 
 ## How to use the mobile application
-
 1. Enter the phone number you want in the main screen with the appropriate prefix of the country.
 2. The prefix is usually in the form of +xx or 00xx where the x is the digits of the country code.
 For example, Greece has the prefix +30 or 0030.
