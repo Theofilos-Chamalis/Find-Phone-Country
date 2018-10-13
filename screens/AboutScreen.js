@@ -1,8 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image, Linking, Alert } from 'react-native';
 
-const packageFile = require('../package.json');
-
 export default () => {
   const onSendEmail = () => {
     Linking.openURL(
@@ -24,7 +22,7 @@ export default () => {
         style={styles.imageStyle}
       />
       <View style={styles.textGroupStyle}>
-        <Text style={styles.textHead1Style}> {packageFile.name} </Text>
+        <Text style={styles.textHead1Style}> Find Phone Country </Text>
         <Text style={styles.textHead2Style}>Version {packageFile.version}</Text>
         <Text style={styles.textParagraphStyle}>
           This app was created by Theofilos Chamalis. For any questions,
