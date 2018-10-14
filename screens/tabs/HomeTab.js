@@ -71,7 +71,7 @@ export default class HomeTab extends Component {
 
   onChangeFormNumber = (text) => {
     this.setState({
-      phone: text.replace(/[^0-9]/g, '')
+      phone: text.replace(/[^0-9+]/g, '')
     });
   };
 
