@@ -66,14 +66,20 @@ export default class HomeTab extends Component {
 
   requestContactsPermission = async () => {
     try {
-      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS)
-      if (!granted === PermissionsAndroid.RESULTS.GRANTED) {
-        Alert.alert('Error', 'Permission was denied!');
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_CONTACTS
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        return true;
+      } else {
+        Alert.alert(
+          'Permission Denied',
+          'Please accept the "READ CONTACTS" permissions in order to use the "LOAD" function'
+        );
         return false;
       }
-      return true;
     } catch (err) {
-      console.warn(err)
+      console.warn(err);
       return false;
     }
   };
@@ -101,21 +107,22 @@ export default class HomeTab extends Component {
 
   onLoadContacts = async () => {
     const hasPermissions = await this.requestContactsPermission();
-    console.log(hasPermissions);    
-    return hasPermissions? selectContactPhone().then((selection) => {
-      if (!selection) {
-        return null;
-      }
+    return hasPermissions
+      ? selectContactPhone().then((selection) => {
+          if (!selection) {
+            return null;
+          }
 
-      let { selectedPhone } = selection;
-      let selectedPhoneNumber = selectedPhone.number;
+          let { selectedPhone } = selection;
+          let selectedPhoneNumber = selectedPhone.number;
 
-      this.setState({
-        phone: selectedPhoneNumber.toString()
-      });
-      return selectedPhone.number;
-    }) : null;
-  }; 
+          this.setState({
+            phone: selectedPhoneNumber.toString()
+          });
+          return selectedPhone.number;
+        })
+      : null;
+  };
 
   onSubmitFormNumber = () => {
     if (this.state.phone.length > 5) {
