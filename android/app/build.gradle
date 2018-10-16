@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-splash-screen')
     implementation project(':react-native-action-sheet')
     implementation project(':react-native-select-contact')
     implementation project(':react-native-vector-icons')

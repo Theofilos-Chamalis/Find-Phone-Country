@@ -11,6 +11,7 @@ import {
   PermissionsAndroid
 } from 'react-native';
 import { selectContactPhone } from 'react-native-select-contact';
+import SplashScreen from 'react-native-splash-screen';
 
 import fetchNumberInfo from '../../api/fetchNumberInfo';
 import capitalizeFirstLetter from '../../utils/stringUtils';
@@ -88,6 +89,10 @@ export default class HomeTab extends Component {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
     this.setState({ keyboardActive: false });
+  };
+
+  componentDidMount = () => {
+    SplashScreen.hide();
   };
 
   onChangeFormNumber = (text) => {

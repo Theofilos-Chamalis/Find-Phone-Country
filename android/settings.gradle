@@ -1,4 +1,6 @@
 rootProject.name = 'FindPhoneCountry'
+include ':react-native-splash-screen'
+project(':react-native-splash-screen').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-splash-screen/android')
 include ':react-native-action-sheet'
 project(':react-native-action-sheet').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-action-sheet/android')
 include ':react-native-select-contact'
