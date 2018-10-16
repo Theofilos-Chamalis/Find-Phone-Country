@@ -7,7 +7,8 @@ import {
   Image,
   Keyboard,
   TextInput,
-  Alert
+  Alert,
+  PermissionsAndroid
 } from 'react-native';
 import { selectContactPhone } from 'react-native-select-contact';
 
@@ -63,6 +64,20 @@ export default class HomeTab extends Component {
     this.setState({ keyboardActive: false });
   });
 
+  requestContactsPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS)
+      if (!granted === PermissionsAndroid.RESULTS.GRANTED) {
+        Alert.alert('Error', 'Permission was denied!');
+        return false;
+      }
+      return true;
+    } catch (err) {
+      console.warn(err)
+      return false;
+    }
+  };
+
   componentWillUnmount = () => {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
@@ -84,8 +99,10 @@ export default class HomeTab extends Component {
     });
   };
 
-  onLoadContacts = () => {
-    return selectContactPhone().then((selection) => {
+  onLoadContacts = async () => {
+    const hasPermissions = await this.requestContactsPermission();
+    console.log(hasPermissions);    
+    return hasPermissions? selectContactPhone().then((selection) => {
       if (!selection) {
         return null;
       }
@@ -97,8 +114,8 @@ export default class HomeTab extends Component {
         phone: selectedPhoneNumber.toString()
       });
       return selectedPhone.number;
-    });
-  };
+    }) : null;
+  }; 
 
   onSubmitFormNumber = () => {
     if (this.state.phone.length > 5) {
