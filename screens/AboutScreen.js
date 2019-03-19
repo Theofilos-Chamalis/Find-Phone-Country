@@ -23,7 +23,7 @@ export default () => {
       />
       <View style={styles.textGroupStyle}>
         <Text style={styles.textHead1Style}> Find Phone Country </Text>
-        <Text style={styles.textHead2Style}>Version 3.0</Text>
+        <Text style={styles.textHead2Style}>Version 3.1</Text>
         <Text style={styles.textParagraphStyle}>
           This app was created by Theofilos Chamalis. For any questions,
           suggestions or donations feel free to contact me at:

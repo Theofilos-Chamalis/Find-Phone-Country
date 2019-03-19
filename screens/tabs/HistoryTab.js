@@ -109,7 +109,8 @@ export default class HistoryTab extends Component {
         titleStyle={{ color: '#ffffff' }}
         descriptionStyle={{ color: '#EAE6E5' }}
         options={{
-          style: { paddingTop: 5 }
+          style: { paddingTop: 5 },
+          enableEmptySections: true
         }}
         innerCircle={'icon'}
       />

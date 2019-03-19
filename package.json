@@ -1,6 +1,6 @@
 {
   "name": "find-phone-country",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "private": true,
   "scripts": {
     "build": "cd android && ./gradlew assembleRelease",
@@ -10,23 +10,25 @@
     "test-code": "jest"
   },
   "dependencies": {
-    "@babel/runtime": "^7.1.2",
+    "@react-native-community/async-storage": "^1.2.1",
     "moment": "^2.24.0",
-    "native-base": "^2.11.0",
-    "react": "16.5.0",
-    "react-native": "0.57.1",
+    "native-base": "^2.12.1",
+    "react": "16.8.4",
+    "react-native": "0.59.1",
     "react-native-action-sheet": "^2.2.0",
-    "react-native-select-contact": "^1.1.1",
+    "react-native-select-contact": "^1.2.0",
     "react-native-splash-screen": "^3.2.0",
     "react-native-timeline-listview": "^0.2.3",
-    "react-native-vector-icons": "^6.2.0",
+    "react-native-vector-icons": "^6.4.1",
     "react-navigation": "^2.17.0"
   },
   "devDependencies": {
-    "babel-jest": "23.6.0",
-    "jest": "23.6.0",
-    "metro-react-native-babel-preset": "0.47.0",
-    "react-test-renderer": "16.5.0"
+    "@babel/core": "7.3.4",
+    "@babel/runtime": "7.3.4",
+    "babel-jest": "24.5.0",
+    "jest": "24.5.0",
+    "metro-react-native-babel-preset": "0.53.1",
+    "react-test-renderer": "16.8.4"
   },
   "jest": {
     "preset": "react-native"
