@@ -2,10 +2,9 @@ import { Icon } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, View, StatusBar, Text } from 'react-native';
 import Timeline from 'react-native-timeline-listview';
-import moment from 'moment';
+import format from 'date-fns/format';
 
 import { getAllRecords } from '../../db/asyncStorageProvider';
-import addPrecedingZero from '../../utils/precedingZero';
 
 export default class HistoryTab extends Component {
   constructor(props) {
@@ -41,41 +40,15 @@ export default class HistoryTab extends Component {
   fillTimeline = (data) => {
     const timelineArray = data.map((call, index) => {
       const timestamp = Number(call[0]);
-      const month = addPrecedingZero(
-        (
-          moment
-            .utc(timestamp)
-            .local()
-            .month() + 1
-        ).toString()
-      );
-      const day = addPrecedingZero(
-        moment
-          .utc(timestamp)
-          .local()
-          .date()
-          .toString()
-      );
-      const hour = addPrecedingZero(
-        moment
-          .utc(timestamp)
-          .local()
-          .hour()
-          .toString()
-      );
-      const minute = addPrecedingZero(
-        moment
-          .utc(timestamp)
-          .local()
-          .minute()
-          .toString()
-      );
+      const dateString = (format(new Date(timestamp), 'DD/MM')).toString();
+      const timeString = (format(new Date(timestamp), 'hh:mm')).toString();
+
       const phone = JSON.parse(call[1]).phone;
       const carrier = JSON.parse(call[1]).carrier;
       const country = JSON.parse(call[1]).countryOfOrigin;
       const phoneType = JSON.parse(call[1]).phoneType;
       return {
-        time: `${day}/${month}\n${hour}:${minute}`,
+        time: `${dateString}\n${timeString}`,
         title: `Phone #${index + 1}`,
         description: `Phone:  ${phone}\nCarrier:  ${carrier}\nCountry:  ${country}\nPhone Type:  ${phoneType}`,
         icon:
