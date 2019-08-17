@@ -114,18 +114,18 @@ export default class HomeTab extends Component {
     const hasPermissions = await this.requestContactsPermission();
     return hasPermissions
       ? selectContactPhone().then((selection) => {
-          if (!selection) {
-            return null;
-          }
+        if (!selection) {
+          return null;
+        }
 
-          let { selectedPhone } = selection;
-          let selectedPhoneNumber = selectedPhone.number;
+        let { selectedPhone } = selection;
+        let selectedPhoneNumber = selectedPhone.number;
 
-          this.setState({
-            phone: selectedPhoneNumber.toString()
-          });
-          return selectedPhone.number;
-        })
+        this.setState({
+          phone: selectedPhoneNumber.toString()
+        });
+        return selectedPhone.number;
+      })
       : null;
   };
 
@@ -143,8 +143,8 @@ export default class HomeTab extends Component {
                   : 'Not Available',
                 countryOfOrigin: apiResponse.location
                   ? capitalizeFirstLetter(apiResponse.location) +
-                    ', ' +
-                    capitalizeFirstLetter(apiResponse.country_name)
+                  ', ' +
+                  capitalizeFirstLetter(apiResponse.country_name)
                   : capitalizeFirstLetter(apiResponse.country_name),
                 phoneType: capitalizeFirstLetter(apiResponse.line_type)
               },

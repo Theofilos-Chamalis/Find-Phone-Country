@@ -6,7 +6,7 @@ export default () => {
     Linking.openURL(
       'mailto:theofxam@gmail.com?cc=&subject=Find Phone Country&body='
     )
-      .then(() => {})
+      .then(() => { })
       .catch(() => {
         Alert.alert(
           'Error',

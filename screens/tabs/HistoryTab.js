@@ -115,10 +115,10 @@ export default class HistoryTab extends Component {
         innerCircle={'icon'}
       />
     ) : (
-      <View style={styles.textContainer}>
-        <Text style={styles.noHistoryText}>No history available</Text>
-      </View>
-    );
+        <View style={styles.textContainer}>
+          <Text style={styles.noHistoryText}>No history available</Text>
+        </View>
+      );
 
     return (
       <View style={styles.container}>
