@@ -10,24 +10,24 @@
     "test-code": "jest"
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^1.2.1",
+    "@react-native-community/async-storage": "^1.6.1",
     "moment": "^2.24.0",
-    "native-base": "^2.12.1",
+    "native-base": "^2.13.5",
     "react": "16.8.4",
     "react-native": "0.59.10",
     "react-native-action-sheet": "^2.2.0",
-    "react-native-select-contact": "^1.2.0",
+    "react-native-select-contact": "^1.2.1",
     "react-native-splash-screen": "^3.2.0",
     "react-native-timeline-listview": "^0.2.3",
-    "react-native-vector-icons": "^6.4.1",
+    "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^2.17.0"
   },
   "devDependencies": {
-    "@babel/core": "7.4.5",
-    "@babel/runtime": "7.4.5",
-    "babel-jest": "24.8.0",
-    "jest": "24.8.0",
-    "metro-react-native-babel-preset": "0.54.1",
+    "@babel/core": "7.5.5",
+    "@babel/runtime": "7.5.5",
+    "babel-jest": "24.9.0",
+    "jest": "24.9.0",
+    "metro-react-native-babel-preset": "0.56.0",
     "react-test-renderer": "16.8.4"
   },
   "jest": {
