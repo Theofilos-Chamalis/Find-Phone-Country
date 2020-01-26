@@ -28,10 +28,11 @@ const navOptions = ({ navigation }) => {
       justifyContent: 'space-between',
       alignSelf: 'center',
       textAlign: 'center',
+      marginLeft: 16,
       flex: 1,
       flexGrow: 1
     },
-    headerRight: (
+    headerRight: () => (
       <TouchableWithoutFeedback onPress={() => navigation.navigate('About')}>
         <Icon
           name="ios-help-circle-outline"
@@ -39,7 +40,7 @@ const navOptions = ({ navigation }) => {
         />
       </TouchableWithoutFeedback>
     ),
-    headerLeft: backButton(navigation)
+    headerLeft: () => backButton(navigation)
   };
 };
 
