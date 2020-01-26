@@ -10,9 +10,9 @@
     "test-code": "jest"
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^1.6.1",
-    "date-fns": "^1.30.1",
-    "native-base": "^2.13.5",
+    "@react-native-community/async-storage": "^1.7.1",
+    "date-fns": "^2.9.0",
+    "native-base": "^2.13.8",
     "react": "16.8.4",
     "react-native": "0.59.10",
     "react-native-action-sheet": "^2.2.0",
