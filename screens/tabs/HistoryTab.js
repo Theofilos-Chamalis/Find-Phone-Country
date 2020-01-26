@@ -62,7 +62,7 @@ export default class HistoryTab extends Component {
       <Timeline
         data={this.state.timelineData}
         circleSize={20}
-        iconStyle={{ marginTop: 25 }}
+        iconStyle={{ marginTop: 4 }}
         circleColor="#212121"
         lineColor="#C62828"
         timeContainerStyle={{ minWidth: 52, marginTop: 0 }}
@@ -71,9 +71,9 @@ export default class HistoryTab extends Component {
           backgroundColor: '#306BAC',
           color: 'white',
           padding: 5,
-          borderRadius: 13
+          borderRadius: 10
         }}
-        titleStyle={{ color: '#ffffff' }}
+        titleStyle={{ color: '#ffffff', marginTop: -8 }}
         descriptionStyle={{ color: '#EAE6E5' }}
         options={{
           style: { paddingTop: 5 },
