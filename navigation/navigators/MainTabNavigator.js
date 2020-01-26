@@ -42,7 +42,7 @@ const MainTabNavigator = createBottomTabNavigator(
         backgroundColor: '#C62828'
       },
       activeTintColor: '#ffffff',
-      inactiveTintColor: '#bdbdbd'
+      inactiveTintColor: '#d6d6d6'
     },
     navigationOptions: ({ navigation }) => ({
       headerShown: false
