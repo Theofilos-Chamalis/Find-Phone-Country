@@ -34,7 +34,7 @@ export default class HistoryTab extends Component {
   fillTimeline = (data) => {
     const timelineArray = data.map((call, index) => {
       const timestamp = Number(call[0]);
-      const dateString = (format(new Date(timestamp), 'DD/MM')).toString();
+      const dateString = (format(new Date(timestamp), 'dd/MM')).toString();
       const timeString = (format(new Date(timestamp), 'hh:mm')).toString();
 
       const phone = JSON.parse(call[1]).phone;
