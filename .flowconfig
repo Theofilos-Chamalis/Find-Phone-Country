@@ -71,4 +71,4 @@ unsafe-getters-setters
 untyped-import
 untyped-type-import
 [version]
-^0.105.0
+^0.107.0
