@@ -45,7 +45,7 @@ const MainTabNavigator = createBottomTabNavigator(
       inactiveTintColor: '#d6d6d6'
     },
     navigationOptions: ({ navigation }) => ({
-      headerShown: false
+      headerShown: true
     })
   }
 );

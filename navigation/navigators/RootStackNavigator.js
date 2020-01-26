@@ -7,11 +7,11 @@ import navOptions from '../navigationOptions/CommonNavigationOptions';
 const RootStackNavigator = createStackNavigator({
   Main: {
     screen: MainTabNavigator,
-    defaultNavigationOptions: navOptions
+    navigationOptions: navOptions
   },
   About: {
     screen: AboutScreen,
-    defaultNavigationOptions: navOptions
+    navigationOptions: navOptions
   }
 });
 
