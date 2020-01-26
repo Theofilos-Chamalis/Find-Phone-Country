@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-import { createStackNavigator } from 'react-navigation';
+import { createAppContainer } from 'react-navigation';
+import RootStackNavigator from './navigation/navigators/RootStackNavigator';
 
-import Main from './screens/Main';
-
-const Navigator = createStackNavigator({
-  Main: {
-    screen: Main
-  }
-});
+const ApplicationContainer = createAppContainer(RootStackNavigator);
 
 export default class App extends Component {
   render() {
-    return <Navigator />;
+    return <ApplicationContainer />;
   }
 }

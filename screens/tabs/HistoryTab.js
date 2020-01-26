@@ -1,7 +1,7 @@
 import { Icon } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, View, StatusBar, Text } from 'react-native';
-import Timeline from 'react-native-timeline-listview';
+import Timeline from 'react-native-timeline-flatlist';
 import format from 'date-fns/format';
 
 import { getAllRecords } from '../../db/asyncStorageProvider';
@@ -16,7 +16,7 @@ export default class HistoryTab extends Component {
     };
   }
 
-  static navigationOptions = {
+  static defaultNavigationOptions = {
     tabBarIcon: ({ tintColor }) => {
       return <Icon name="ios-time" style={{ color: tintColor }} />;
     }

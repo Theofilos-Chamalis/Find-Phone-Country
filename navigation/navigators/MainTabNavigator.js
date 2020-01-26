@@ -1,9 +1,9 @@
-import { createTabNavigator } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import HomeTab from '../../screens/tabs/HomeTab';
 import HistoryTab from '../../screens/tabs/HistoryTab';
 
-const MainTabNavigator = createTabNavigator(
+const MainTabNavigator = createBottomTabNavigator(
   {
     Home: {
       screen: HomeTab

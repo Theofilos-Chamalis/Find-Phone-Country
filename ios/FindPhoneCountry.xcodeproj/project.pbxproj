@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -61,6 +62,7 @@
 		651097882ABD4CF285E8FBB8 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F824F7D93E1E4408B821730F /* libSplashScreen.a */; };
 		796AAC650AA24ACCA2ADAA07 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5DF0DA844C46E3B06D663E /* libRNVectorIcons.a */; };
 		CD2258C7ACD540ABBB62766F /* libRNVectorIcons-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E19FDA609914B27BA88FF02 /* libRNVectorIcons-tvOS.a */; };
+		BEFDE9DF342A43FAAC7D918C /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D17AE7155A8D419E8BA6C880 /* Fontisto.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -393,6 +395,7 @@
 		107F0AB91E09438399464414 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; name = "RNVectorIcons.xcodeproj"; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		9B5DF0DA844C46E3B06D663E /* libRNVectorIcons.a */ = {isa = PBXFileReference; name = "libRNVectorIcons.a"; path = "libRNVectorIcons.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		6E19FDA609914B27BA88FF02 /* libRNVectorIcons-tvOS.a */ = {isa = PBXFileReference; name = "libRNVectorIcons-tvOS.a"; path = "libRNVectorIcons-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		D17AE7155A8D419E8BA6C880 /* Fontisto.ttf */ = {isa = PBXFileReference; name = "Fontisto.ttf"; path = "../node_modules/native-base/Fonts/Fontisto.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -686,6 +689,7 @@
 				082BE2F3B69942B9AC468061 /* rubicon-icon-font.ttf */,
 				5CEA5CDC2A8848849F19AFB0 /* SimpleLineIcons.ttf */,
 				B31F715FEF374D02A59C998E /* Zocial.ttf */,
+				D17AE7155A8D419E8BA6C880 /* Fontisto.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1155,6 +1159,7 @@
 				F876915ED92D43939DA75AD7 /* rubicon-icon-font.ttf in Resources */,
 				9ED459D3B1824936A4A6EA0A /* SimpleLineIcons.ttf in Resources */,
 				D8F8ED6C368543CF91189E3F /* Zocial.ttf in Resources */,
+				BEFDE9DF342A43FAAC7D918C /* Fontisto.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

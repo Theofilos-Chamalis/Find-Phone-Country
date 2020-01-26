@@ -29,7 +29,7 @@ export default class HomeTab extends Component {
     };
   }
 
-  static navigationOptions = {
+  static defaultNavigationOptions = {
     tabBarIcon: ({ tintColor }) => {
       return <Icon name="ios-home" style={{ color: tintColor }} />;
     }
