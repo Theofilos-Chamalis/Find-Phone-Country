@@ -1,3 +1,5 @@
+import React from 'react';
+import { Icon } from 'native-base';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import HomeTab from '../../screens/tabs/HomeTab';
@@ -6,10 +8,22 @@ import HistoryTab from '../../screens/tabs/HistoryTab';
 const MainTabNavigator = createBottomTabNavigator(
   {
     Home: {
-      screen: HomeTab
+      screen: HomeTab,
+      navigationOptions: {
+        tabBarLabel: 'Home',
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="ios-home" style={{ color: tintColor }} />
+        )
+      }
     },
     History: {
-      screen: HistoryTab
+      screen: HistoryTab,
+      navigationOptions: {
+        tabBarLabel: 'History',
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="ios-time" style={{ color: tintColor }} />
+        )
+      }
     }
   },
   {
@@ -28,8 +42,11 @@ const MainTabNavigator = createBottomTabNavigator(
         backgroundColor: '#C62828'
       },
       activeTintColor: '#ffffff',
-      inactiveTintColor: '#e0e0e0'
-    }
+      inactiveTintColor: '#bdbdbd'
+    },
+    navigationOptions: ({ navigation }) => ({
+      headerShown: false
+    })
   }
 );
 

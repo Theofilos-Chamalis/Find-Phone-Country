@@ -16,12 +16,6 @@ export default class HistoryTab extends Component {
     };
   }
 
-  static defaultNavigationOptions = {
-    tabBarIcon: ({ tintColor }) => {
-      return <Icon name="ios-time" style={{ color: tintColor }} />;
-    }
-  };
-
   didFocusSubscription = this.props.navigation.addListener('didFocus', () => {
     getAllRecords()
       .then(async (results) => {
