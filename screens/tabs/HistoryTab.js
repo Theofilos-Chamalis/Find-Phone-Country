@@ -1,7 +1,7 @@
 import { Icon } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, View, StatusBar, Text } from 'react-native';
-import Timeline from 'react-native-timeline-listview';
+import Timeline from 'react-native-timeline-flatlist';
 import format from 'date-fns/format';
 
 import { getAllRecords } from '../../db/asyncStorageProvider';
@@ -15,12 +15,6 @@ export default class HistoryTab extends Component {
       history: false
     };
   }
-
-  static navigationOptions = {
-    tabBarIcon: ({ tintColor }) => {
-      return <Icon name="ios-time" style={{ color: tintColor }} />;
-    }
-  };
 
   didFocusSubscription = this.props.navigation.addListener('didFocus', () => {
     getAllRecords()
@@ -40,7 +34,7 @@ export default class HistoryTab extends Component {
   fillTimeline = (data) => {
     const timelineArray = data.map((call, index) => {
       const timestamp = Number(call[0]);
-      const dateString = (format(new Date(timestamp), 'DD/MM')).toString();
+      const dateString = (format(new Date(timestamp), 'dd/MM')).toString();
       const timeString = (format(new Date(timestamp), 'hh:mm')).toString();
 
       const phone = JSON.parse(call[1]).phone;
@@ -68,7 +62,7 @@ export default class HistoryTab extends Component {
       <Timeline
         data={this.state.timelineData}
         circleSize={20}
-        iconStyle={{ marginTop: 25 }}
+        iconStyle={{ marginTop: 4 }}
         circleColor="#212121"
         lineColor="#C62828"
         timeContainerStyle={{ minWidth: 52, marginTop: 0 }}
@@ -77,9 +71,9 @@ export default class HistoryTab extends Component {
           backgroundColor: '#306BAC',
           color: 'white',
           padding: 5,
-          borderRadius: 13
+          borderRadius: 10
         }}
-        titleStyle={{ color: '#ffffff' }}
+        titleStyle={{ color: '#ffffff', marginTop: -8 }}
         descriptionStyle={{ color: '#EAE6E5' }}
         options={{
           style: { paddingTop: 5 },

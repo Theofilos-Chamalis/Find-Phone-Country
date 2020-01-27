@@ -1,4 +1,4 @@
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 import AboutScreen from '../../screens/AboutScreen';
 import MainTabNavigator from './MainTabNavigator';
