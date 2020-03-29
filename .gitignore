@@ -28,6 +28,11 @@ build/
 .gradle
 local.properties
 *.iml
+mapping.txt
+seeds.txt
+unused.txt
+output.json
+*.apk
 
 # node.js
 #
