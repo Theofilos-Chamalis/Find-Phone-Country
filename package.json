@@ -28,10 +28,10 @@
     "react-native-splash-screen": "^3.2.0",
     "react-native-timeline-flatlist": "^0.7.0",
     "react-native-vector-icons": "^6.6.0",
-    "react-navigation": "^4.3.4",
-    "react-navigation-drawer": "^2.4.8",
-    "react-navigation-stack": "^2.3.8",
-    "react-navigation-tabs": "^2.8.8"
+    "react-navigation": "^4.3.5",
+    "react-navigation-drawer": "^2.4.9",
+    "react-navigation-stack": "^2.3.9",
+    "react-navigation-tabs": "^2.8.9"
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
