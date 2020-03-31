@@ -41,7 +41,7 @@ export default class HomeTab extends Component {
     this.setState({ keyboardActive: false });
   };
 
-  didFocusSubscription = this.props.navigation.addListener('didFocus', () => {
+  didFocusSubscription = this.props.navigation.addListener('willFocus', () => {
     this.keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       this._keyboardDidShow

@@ -16,7 +16,7 @@ export default class HistoryTab extends Component {
     };
   }
 
-  didFocusSubscription = this.props.navigation.addListener('didFocus', () => {
+  didFocusSubscription = this.props.navigation.addListener('willFocus', () => {
     getAllRecords()
       .then(async (results) => {
         if (results.length > 0) {
