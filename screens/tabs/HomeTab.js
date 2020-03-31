@@ -41,24 +41,6 @@ export default class HomeTab extends Component {
     this.setState({ keyboardActive: false });
   };
 
-  didFocusSubscription = this.props.navigation.addListener('willFocus', () => {
-    this.keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      this._keyboardDidShow
-    );
-    this.keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      this._keyboardDidHide
-    );
-    this.setState({ keyboardActive: false });
-  });
-
-  willBlurSubscription = this.props.navigation.addListener('willBlur', () => {
-    this.keyboardDidShowListener.remove();
-    this.keyboardDidHideListener.remove();
-    this.setState({ keyboardActive: false });
-  });
-
   requestContactsPermission = async () => {
     try {
       const granted = await PermissionsAndroid.request(
@@ -82,11 +64,31 @@ export default class HomeTab extends Component {
   componentWillUnmount = () => {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
+    this.willBlurSubscription.remove();
+    this.willFocusSubscription.remove();
     this.setState({ keyboardActive: false });
   };
 
   componentDidMount = () => {
     SplashScreen.hide();
+
+    this.willFocusSubscription = this.props.navigation.addListener('willFocus', () => {
+      this.keyboardDidShowListener = Keyboard.addListener(
+        'keyboardDidShow',
+        this._keyboardDidShow
+      );
+      this.keyboardDidHideListener = Keyboard.addListener(
+        'keyboardDidHide',
+        this._keyboardDidHide
+      );
+      this.setState({ keyboardActive: false });
+    });
+
+    this.willBlurSubscription = this.props.navigation.addListener('willBlur', () => {
+      this.keyboardDidShowListener.remove();
+      this.keyboardDidHideListener.remove();
+      this.setState({ keyboardActive: false });
+    });
   };
 
   onChangeFormNumber = (text) => {

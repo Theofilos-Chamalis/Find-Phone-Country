@@ -16,21 +16,6 @@ export default class HistoryTab extends Component {
     };
   }
 
-  didFocusSubscription = this.props.navigation.addListener('willFocus', () => {
-    getAllRecords()
-      .then(async (results) => {
-        if (results.length > 0) {
-          await this.setState({ history: true });
-          this.fillTimeline(results);
-        } else {
-          await this.setState({ history: false });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  });
-
   fillTimeline = (data) => {
     const timelineArray = data.map((call, index) => {
       const timestamp = Number(call[0]);
@@ -55,6 +40,27 @@ export default class HistoryTab extends Component {
     this.setState({
       timelineData: timelineArray
     });
+  };
+
+  componentDidMount = () => {
+    this.willFocusSubscription = this.props.navigation.addListener('willFocus', () => {
+      getAllRecords()
+        .then(async (results) => {
+          if (results.length > 0) {
+            await this.setState({ history: true });
+            this.fillTimeline(results);
+          } else {
+            await this.setState({ history: false });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  };
+
+  componentWillUnmount = () => {
+    this.willFocusSubscription.remove();
   };
 
   render() {
