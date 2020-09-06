@@ -169,7 +169,7 @@ export default class HomeTab extends Component {
                     onPress={() => {
                         this.onLoadContacts();
                     }}>
-                    <Icon name="ios-contacts"/>
+                    <Icon name="people-outline"/>
                     <Text>LOAD</Text>
                 </Button>
                 <Button

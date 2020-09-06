@@ -15,10 +15,12 @@ import com.android.build.OutputFile
  *   // the name of the generated asset file containing your JS bundle
  *   bundleAssetName: "index.android.bundle",
  *
- *   // the entry file for bundle generation
+ *   // the entry file for bundle generation. If none specified and
+ *   // "index.android.js" exists, it will be used. Otherwise "index.js" is
+ *   // default. Can be overridden with ENTRY_FILE environment variable.
  *   entryFile: "index.android.js",
  *
- *   // https://facebook.github.io/react-native/docs/performance#enable-the-ram-format
+ *   // https://reactnative.dev/docs/performance#enable-the-ram-format
  *   bundleCommand: "ram-bundle",
  *
  *   // whether to bundle JS and assets in debug mode
@@ -130,8 +132,9 @@ android {
         applicationId "com.theofilos.chamalis.findphonecountry"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 80
-        versionName "3.4"
+        versionCode 90
+        versionName "4.0"
+        multiDexEnabled false
     }
     signingConfigs {
         release {
@@ -147,10 +150,14 @@ android {
         abi {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
-            universalApk false  // If true, also generate a universal APK
+            universalApk true  // If true, also generate a universal APK
             include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
     }
+    dexOptions {
+            preDexLibraries true
+            javaMaxHeapSize "4g"
+        }
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
@@ -179,7 +186,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "com.facebook.react:react-native:+"  // From node_modules   
+    //noinspection GradleDynamicVersion
+    implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
@@ -199,7 +208,7 @@ task copyDownloadableDepsToLibs(type: Copy) {
 
 configurations.all {
     resolutionStrategy {
-        force "com.facebook.soloader:soloader:0.8.2"
+        force "com.facebook.soloader:soloader:0.9.0"
     }
 }
 
