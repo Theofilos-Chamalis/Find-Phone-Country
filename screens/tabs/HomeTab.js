@@ -160,8 +160,60 @@ export default class HomeTab extends Component {
         }
     };
 
-    renderInfoRow = () => {
-        return (<View></View>);
+    renderInfoRow = (title, value) => {
+        return (
+            <View style={styles.infoRow}>
+                <Text
+                    numberOfLines={1}
+                    ellipsizeMode='tail'
+                    style={
+                        this.state.keyboardActive
+                            ? styles.infoTextKeyboardUp
+                            : styles.infoText
+                    }>
+                    {`${title}:`}
+                </Text>
+                <Text
+                    numberOfLines={2}
+                    ellipsizeMode='tail'
+                    style={
+                        this.state.keyboardActive
+                            ? styles.infoValueKeyboardUp
+                            : styles.infoValue
+                    }>
+                    {value ? value : ''}
+                </Text>
+            </View>
+        );
+    };
+
+    renderInputField = () => {
+        return (
+            <View
+                style={
+                    this.state.keyboardActive
+                        ? styles.formStyleKeyboardUp
+                        : styles.formStyle
+                }>
+                <TextInput
+                    style={styles.inputFormNumberStyle}
+                    keyboardType="numeric"
+                    onChangeText={(enteredNumber) =>
+                        this.onChangeFormNumber(enteredNumber)
+                    }
+                    placeholder="Enter Phone Number"
+                    autoCapitalize={'none'}
+                    placeholderTextColor="#dedede"
+                    onSubmitEditing={() => this.onSubmitFormNumber()}
+                    selectionColor="red"
+                    returnKeyType="search"
+                    returnKeyLabel="Find"
+                    underlineColorAndroid="white"
+                    value={this.state.phone}
+                    maxLength={16}
+                />
+            </View>
+        );
     };
 
     renderButtonGroup = () => {
@@ -220,77 +272,11 @@ export default class HomeTab extends Component {
                 />
 
                 <View style={styles.inputAndTextContainer}>
-                    <View
-                        style={
-                            this.state.keyboardActive
-                                ? styles.formStyleKeyboardUp
-                                : styles.formStyle
-                        }>
-                        <TextInput
-                            style={styles.inputFormNumberStyle}
-                            keyboardType="numeric"
-                            onChangeText={(enteredNumber) =>
-                                this.onChangeFormNumber(enteredNumber)
-                            }
-                            placeholder="Enter Phone Number"
-                            autoCapitalize={'none'}
-                            placeholderTextColor="#dedede"
-                            onSubmitEditing={() => this.onSubmitFormNumber()}
-                            selectionColor="red"
-                            returnKeyType="search"
-                            returnKeyLabel="Find"
-                            underlineColorAndroid="white"
-                            value={this.state.phone}
-                            maxLength={16}
-                        />
-                    </View>
-
+                    {this.renderInputField()}
                     <View style={styles.infoGroup}>
-                        <Text
-                            style={
-                                this.state.keyboardActive
-                                    ? styles.infoTextKeyboardUp
-                                    : styles.infoText
-                            }>
-                            Country Of Origin:
-                            <Text style={
-                                this.state.keyboardActive
-                                    ? styles.infoValueKeyboardUp
-                                    : styles.infoValue
-                            }>
-                                {this.state.countryOfOrigin ? ' ' + this.state.countryOfOrigin : ''}
-                            </Text>
-                        </Text>
-                        <Text
-                            style={
-                                this.state.keyboardActive
-                                    ? styles.infoTextKeyboardUp
-                                    : styles.infoText
-                            }>
-                            Phone Type:
-                            <Text style={
-                                this.state.keyboardActive
-                                    ? styles.infoValueKeyboardUp
-                                    : styles.infoValue
-                            }>
-                                {this.state.phoneType ? ' ' + this.state.phoneType : ''}
-                            </Text>
-                        </Text>
-                        <Text
-                            style={
-                                this.state.keyboardActive
-                                    ? styles.infoTextKeyboardUp
-                                    : styles.infoText
-                            }>
-                            Mobile Carrier:
-                            <Text style={
-                                this.state.keyboardActive
-                                    ? styles.infoValueKeyboardUp
-                                    : styles.infoValue
-                            }>
-                                {this.state.carrier ? ' ' + this.state.carrier : ''}
-                            </Text>
-                        </Text>
+                        {this.renderInfoRow('Country Of Origin', this.state.countryOfOrigin)}
+                        {this.renderInfoRow('Phone Type', this.state.phoneType)}
+                        {this.renderInfoRow('Mobile Carrier', this.state.carrier)}
                     </View>
                 </View>
                 {this.renderButtonGroup()}
@@ -341,34 +327,35 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'left',
-        paddingBottom: 12
     },
     infoTextKeyboardUp: {
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'left',
-        paddingBottom: 4
     },
     infoValue: {
         color: 'white',
         fontWeight: 'normal',
         textAlign: 'right',
-        alignSelf: 'flex-end',
-        alignItems: 'flex-end',
-        alignContent: 'flex-end',
-        justifyContent: 'flex-end',
-        paddingBottom: 12
+        flexShrink: 1,
+        marginLeft: 8,
     },
     infoValueKeyboardUp: {
         color: 'white',
         fontWeight: 'normal',
         textAlign: 'right',
-        paddingBottom: 4
+        flexShrink: 1,
+        marginLeft: 8
     },
     infoGroup: {
-        flex: 1.4,
+        flex: 1.6,
         flexDirection: 'column',
         justifyContent: 'space-evenly'
+    },
+    infoRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 4
     },
     buttonGroup: {
         paddingTop: 40,
