@@ -76,8 +76,8 @@ export default class HomeTab extends Component {
         });
 
         this.willBlurSubscription = this.props.navigation.addListener('willBlur', () => {
-            this.keyboardDidShowListener.remove();
-            this.keyboardDidHideListener.remove();
+            this.keyboardDidShowListener && this.keyboardDidShowListener.remove();
+            this.keyboardDidHideListener && this.keyboardDidHideListener.remove();
             this.setState({keyboardActive: false});
         });
     };
@@ -160,45 +160,52 @@ export default class HomeTab extends Component {
         }
     };
 
-    render() {
-        const buttonGroup = this.state.keyboardActive ? null : (
-            <View style={styles.buttonGroup}>
-                <Button
-                    iconLeft
-                    light
-                    rounded
-                    bordered
-                    onPress={() => {
-                        this.onLoadContacts();
-                    }}>
-                    <Icon name="people-outline" style={styles.buttonText}/>
-                    <Text style={styles.buttonText}>LOAD</Text>
-                </Button>
-                <Button
-                    iconLeft
-                    light
-                    rounded
-                    bordered
-                    onPress={() => {
-                        this.onSubmitFormNumber();
-                    }}>
-                    <Icon name="search" style={styles.buttonText}/>
-                    <Text style={styles.buttonText}>FIND</Text>
-                </Button>
-                <Button
-                    iconLeft
-                    light
-                    rounded
-                    bordered
-                    onPress={() => {
-                        this.onClearFormNumber();
-                    }}>
-                    <Icon name="trash" style={styles.buttonText}/>
-                    <Text style={styles.buttonText}>CLEAR</Text>
-                </Button>
-            </View>
-        );
+    renderInfoRow = () => {
+        return (<View></View>);
+    };
 
+    renderButtonGroup = () => {
+        return (
+            this.state.keyboardActive ? null : (
+                <View style={styles.buttonGroup}>
+                    <Button
+                        iconLeft
+                        light
+                        rounded
+                        bordered
+                        onPress={() => {
+                            this.onLoadContacts();
+                        }}>
+                        <Icon name="people-outline" style={styles.buttonText}/>
+                        <Text style={styles.buttonText}>LOAD</Text>
+                    </Button>
+                    <Button
+                        iconLeft
+                        light
+                        rounded
+                        bordered
+                        onPress={() => {
+                            this.onSubmitFormNumber();
+                        }}>
+                        <Icon name="search" style={styles.buttonText}/>
+                        <Text style={styles.buttonText}>FIND</Text>
+                    </Button>
+                    <Button
+                        iconLeft
+                        light
+                        rounded
+                        bordered
+                        onPress={() => {
+                            this.onClearFormNumber();
+                        }}>
+                        <Icon name="trash" style={styles.buttonText}/>
+                        <Text style={styles.buttonText}>CLEAR</Text>
+                    </Button>
+                </View>
+            ));
+    };
+
+    render() {
         return (
             <View style={styles.containerStyle}>
                 <StatusBar backgroundColor="#B71C1C"/>
@@ -212,62 +219,81 @@ export default class HomeTab extends Component {
                     }
                 />
 
-                <View
-                    style={
-                        this.state.keyboardActive
-                            ? styles.formStyleKeyboardUp
-                            : styles.formStyle
-                    }>
-                    <TextInput
-                        style={styles.inputFormNumberStyle}
-                        keyboardType="numeric"
-                        onChangeText={(enteredNumber) =>
-                            this.onChangeFormNumber(enteredNumber)
-                        }
-                        placeholder="Enter Phone Number"
-                        autoCapitalize={'none'}
-                        placeholderTextColor="#dedede"
-                        onSubmitEditing={() => this.onSubmitFormNumber()}
-                        selectionColor="red"
-                        returnKeyType="search"
-                        returnKeyLabel="Find"
-                        underlineColorAndroid="white"
-                        value={this.state.phone}
-                        maxLength={16}
-                    />
-                </View>
+                <View style={styles.inputAndTextContainer}>
+                    <View
+                        style={
+                            this.state.keyboardActive
+                                ? styles.formStyleKeyboardUp
+                                : styles.formStyle
+                        }>
+                        <TextInput
+                            style={styles.inputFormNumberStyle}
+                            keyboardType="numeric"
+                            onChangeText={(enteredNumber) =>
+                                this.onChangeFormNumber(enteredNumber)
+                            }
+                            placeholder="Enter Phone Number"
+                            autoCapitalize={'none'}
+                            placeholderTextColor="#dedede"
+                            onSubmitEditing={() => this.onSubmitFormNumber()}
+                            selectionColor="red"
+                            returnKeyType="search"
+                            returnKeyLabel="Find"
+                            underlineColorAndroid="white"
+                            value={this.state.phone}
+                            maxLength={16}
+                        />
+                    </View>
 
-                <View style={styles.infoGroup}>
-                    <Text
-                        style={
-                            this.state.keyboardActive
-                                ? styles.infoTextKeyboardUp
-                                : styles.infoText
-                        }>
-                        Country Of Origin:
-                        {this.state.countryOfOrigin ? ' ' + this.state.countryOfOrigin : ''}
-                    </Text>
-                    <Text
-                        style={
-                            this.state.keyboardActive
-                                ? styles.infoTextKeyboardUp
-                                : styles.infoText
-                        }>
-                        Phone Type:
-                        {this.state.phoneType ? ' ' + this.state.phoneType : ''}
-                    </Text>
-                    <Text
-                        style={
-                            this.state.keyboardActive
-                                ? styles.infoTextKeyboardUp
-                                : styles.infoText
-                        }>
-                        Mobile Carrier:
-                        {this.state.carrier ? ' ' + this.state.carrier : ''}
-                    </Text>
+                    <View style={styles.infoGroup}>
+                        <Text
+                            style={
+                                this.state.keyboardActive
+                                    ? styles.infoTextKeyboardUp
+                                    : styles.infoText
+                            }>
+                            Country Of Origin:
+                            <Text style={
+                                this.state.keyboardActive
+                                    ? styles.infoValueKeyboardUp
+                                    : styles.infoValue
+                            }>
+                                {this.state.countryOfOrigin ? ' ' + this.state.countryOfOrigin : ''}
+                            </Text>
+                        </Text>
+                        <Text
+                            style={
+                                this.state.keyboardActive
+                                    ? styles.infoTextKeyboardUp
+                                    : styles.infoText
+                            }>
+                            Phone Type:
+                            <Text style={
+                                this.state.keyboardActive
+                                    ? styles.infoValueKeyboardUp
+                                    : styles.infoValue
+                            }>
+                                {this.state.phoneType ? ' ' + this.state.phoneType : ''}
+                            </Text>
+                        </Text>
+                        <Text
+                            style={
+                                this.state.keyboardActive
+                                    ? styles.infoTextKeyboardUp
+                                    : styles.infoText
+                            }>
+                            Mobile Carrier:
+                            <Text style={
+                                this.state.keyboardActive
+                                    ? styles.infoValueKeyboardUp
+                                    : styles.infoValue
+                            }>
+                                {this.state.carrier ? ' ' + this.state.carrier : ''}
+                            </Text>
+                        </Text>
+                    </View>
                 </View>
-
-                {buttonGroup}
+                {this.renderButtonGroup()}
             </View>
         );
     }
@@ -314,19 +340,35 @@ const styles = StyleSheet.create({
     infoText: {
         color: 'white',
         fontWeight: 'bold',
-        textAlign: 'center',
+        textAlign: 'left',
         paddingBottom: 12
     },
     infoTextKeyboardUp: {
         color: 'white',
         fontWeight: 'bold',
-        textAlign: 'center',
+        textAlign: 'left',
+        paddingBottom: 4
+    },
+    infoValue: {
+        color: 'white',
+        fontWeight: 'normal',
+        textAlign: 'right',
+        alignSelf: 'flex-end',
+        alignItems: 'flex-end',
+        alignContent: 'flex-end',
+        justifyContent: 'flex-end',
+        paddingBottom: 12
+    },
+    infoValueKeyboardUp: {
+        color: 'white',
+        fontWeight: 'normal',
+        textAlign: 'right',
         paddingBottom: 4
     },
     infoGroup: {
         flex: 1.4,
         flexDirection: 'column',
-        justifyContent: 'space-between'
+        justifyContent: 'space-evenly'
     },
     buttonGroup: {
         paddingTop: 40,
@@ -336,5 +378,9 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: 'white'
+    },
+    inputAndTextContainer: {
+        flex: 3,
+        paddingHorizontal: 32,
     }
 });

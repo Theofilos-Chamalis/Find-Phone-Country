@@ -59,7 +59,7 @@ export default class HistoryTab extends Component {
     };
 
     componentWillUnmount = () => {
-        this.willFocusSubscription.remove();
+        this.willFocusSubscription && this.willFocusSubscription.remove();
     };
 
     render() {
