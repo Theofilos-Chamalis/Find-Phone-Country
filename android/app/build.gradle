@@ -120,6 +120,8 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  */
 def enableHermes = project.ext.react.get("enableHermes", false);
 
+def buildVersionCode = Integer.parseInt(new Date().format("yyMMddHH"))
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -132,7 +134,7 @@ android {
         applicationId "com.theofilos.chamalis.findphonecountry"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 90
+        versionCode buildVersionCode
         versionName "4.0"
         multiDexEnabled false
     }

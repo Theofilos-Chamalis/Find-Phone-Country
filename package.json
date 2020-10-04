@@ -1,6 +1,6 @@
 {
   "name": "find-phone-country",
-  "version": "3.4.0",
+  "version": "4.0.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
