@@ -39,10 +39,12 @@ const MainTabNavigator = createBottomTabNavigator(
                 opacity: 0
             },
             style: {
-                backgroundColor: '#B71C1C'
+                backgroundColor: '#B71C1C',
+                paddingTop: 4,
+                borderTopWidth: 0
             },
             activeTintColor: '#ffffff',
-            inactiveTintColor: '#d6d6d6'
+            inactiveTintColor: '#bababa'
         },
         navigationOptions: ({navigation}) => ({
             headerShown: true
