@@ -53,10 +53,10 @@ export default class HomeTab extends Component {
     };
 
     componentWillUnmount = () => {
-        this.keyboardDidShowListener.remove();
-        this.keyboardDidHideListener.remove();
-        this.willBlurSubscription.remove();
-        this.willFocusSubscription.remove();
+        this.keyboardDidShowListener && this.keyboardDidShowListener.remove();
+        this.keyboardDidHideListener && this.keyboardDidHideListener.remove();
+        this.willBlurSubscription && this.willBlurSubscription.remove();
+        this.willFocusSubscription && this.willFocusSubscription.remove();
         this.setState({keyboardActive: false});
     };
 
