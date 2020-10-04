@@ -166,29 +166,35 @@ export default class HomeTab extends Component {
                 <Button
                     iconLeft
                     light
+                    rounded
+                    bordered
                     onPress={() => {
                         this.onLoadContacts();
                     }}>
-                    <Icon name="people-outline"/>
-                    <Text>LOAD</Text>
+                    <Icon name="people-outline" style={styles.buttonText}/>
+                    <Text style={styles.buttonText}>LOAD</Text>
                 </Button>
                 <Button
                     iconLeft
                     light
+                    rounded
+                    bordered
                     onPress={() => {
                         this.onSubmitFormNumber();
                     }}>
-                    <Icon name="search"/>
-                    <Text>FIND</Text>
+                    <Icon name="search" style={styles.buttonText}/>
+                    <Text style={styles.buttonText}>FIND</Text>
                 </Button>
                 <Button
                     iconLeft
                     light
+                    rounded
+                    bordered
                     onPress={() => {
                         this.onClearFormNumber();
                     }}>
-                    <Icon name="trash"/>
-                    <Text>CLEAR</Text>
+                    <Icon name="trash" style={styles.buttonText}/>
+                    <Text style={styles.buttonText}>CLEAR</Text>
                 </Button>
             </View>
         );
@@ -327,5 +333,8 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-evenly'
+    },
+    buttonText: {
+        color: 'white'
     }
 });
