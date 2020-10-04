@@ -20,7 +20,7 @@ const navOptions = ({navigation}) => {
     return {
         headerTitle: 'Find Phone Country',
         headerStyle: {
-            backgroundColor: '#C62828'
+            backgroundColor: '#B71C1C'
         },
         headerTintColor: '#FFFFFF',
         headerTitleStyle: {
