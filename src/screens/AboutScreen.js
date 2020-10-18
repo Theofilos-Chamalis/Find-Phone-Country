@@ -1,6 +1,6 @@
 import React from 'react';
 import {Alert, Image, Linking, StyleSheet, Text, View} from 'react-native';
-import packageJson from '../package.json';
+import packageJson from '../../package.json';
 
 export default () => {
     const onSendEmail = () => {
@@ -20,7 +20,7 @@ export default () => {
     return (
         <View style={styles.containerStyle}>
             <Image
-                source={require('../assets/globenphone.png')}
+                source={require('../../assets/globenphone.png')}
                 style={styles.imageStyle}
             />
             <View style={styles.textGroupStyle}>

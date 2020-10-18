@@ -64,4 +64,4 @@ buck-out/
 /ios/Pods/
 
 # API Keys
-api/keys.js
+src/api/keys.js

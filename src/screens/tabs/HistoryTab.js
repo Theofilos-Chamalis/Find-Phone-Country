@@ -31,8 +31,8 @@ export default class HistoryTab extends Component {
                 description: `Phone:  ${phone}\nCarrier:  ${carrier}\nCountry:  ${country}\nPhone Type:  ${phoneType}`,
                 icon:
                     phoneType === 'Mobile'
-                        ? require('../../assets/smartphone.png')
-                        : require('../../assets/telephone.png')
+                        ? require('../../../assets/smartphone.png')
+                        : require('../../../assets/telephone.png')
             };
         });
 

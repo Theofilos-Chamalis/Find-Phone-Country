@@ -263,7 +263,7 @@ export default class HomeTab extends Component {
                 <StatusBar backgroundColor="#B71C1C"/>
 
                 <Image
-                    source={require('../../assets/globenphone.png')}
+                    source={require('../../../assets/globenphone.png')}
                     style={
                         this.state.keyboardActive
                             ? styles.imageStyleKeyboardUp
