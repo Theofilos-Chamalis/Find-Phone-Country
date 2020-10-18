@@ -141,7 +141,7 @@ export default class HomeTab extends Component {
                                     carrier: this.state.carrier,
                                     countryOfOrigin: this.state.countryOfOrigin,
                                     phoneType: this.state.phoneType
-                                });
+                                }).catch();
                             }
                         );
                     } else {
@@ -226,7 +226,7 @@ export default class HomeTab extends Component {
                         rounded
                         bordered
                         onPress={() => {
-                            this.onLoadContacts();
+                            this.onLoadContacts().catch();
                         }}>
                         <Icon name="people-outline" style={styles.buttonText}/>
                         <Text style={styles.buttonText}>LOAD</Text>
