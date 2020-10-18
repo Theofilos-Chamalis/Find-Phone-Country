@@ -15,32 +15,6 @@ export default class HistoryTab extends Component {
         };
     }
 
-    fillTimeline = (data) => {
-        const timelineArray = data.map((call, index) => {
-            const timestamp = Number(call[0]);
-            const dateString = (format(new Date(timestamp), 'dd/MM')).toString();
-            const timeString = (format(new Date(timestamp), 'hh:mm')).toString();
-
-            const phone = JSON.parse(call[1]).phone;
-            const carrier = JSON.parse(call[1]).carrier;
-            const country = JSON.parse(call[1]).countryOfOrigin;
-            const phoneType = JSON.parse(call[1]).phoneType;
-            return {
-                time: `${dateString}\n${timeString}`,
-                title: `Phone #${index + 1}`,
-                description: `Phone:  ${phone}\nCarrier:  ${carrier}\nCountry:  ${country}\nPhone Type:  ${phoneType}`,
-                icon:
-                    phoneType === 'Mobile'
-                        ? require('../../../assets/smartphone.png')
-                        : require('../../../assets/telephone.png')
-            };
-        });
-
-        this.setState({
-            timelineData: timelineArray
-        });
-    };
-
     componentDidMount = () => {
         this.willFocusSubscription = this.props.navigation.addListener('willFocus', () => {
             getAllRecords()
@@ -62,6 +36,62 @@ export default class HistoryTab extends Component {
         this.willFocusSubscription && this.willFocusSubscription.remove();
     };
 
+    fillTimeline = (data) => {
+        const timelineArray = data.map((call, index) => {
+            const timestamp = Number(call[0]);
+            const dateString = (format(new Date(timestamp), 'dd/MM')).toString();
+            const timeString = (format(new Date(timestamp), 'hh:mm')).toString();
+
+            const phone = JSON.parse(call[1]).phone;
+            const carrier = JSON.parse(call[1]).carrier;
+            const country = JSON.parse(call[1]).countryOfOrigin;
+            const phoneType = JSON.parse(call[1]).phoneType;
+            return {
+                time: `${dateString}\n${timeString}`,
+                title: `Phone #${index + 1}`,
+                description: this.renderDescription(phone, carrier, country, phoneType),
+                icon:
+                    phoneType === 'Mobile'
+                        ? require('../../../assets/smartphone.png')
+                        : require('../../../assets/telephone.png')
+            };
+        });
+
+        this.setState({
+            timelineData: timelineArray
+        });
+    };
+
+    renderDescription = (phone, carrier, country, phoneType) => {
+        return (
+            <View style={styles.descriptionContainer}>
+                {this.renderDescriptionRow('Phone', phone)}
+                {this.renderDescriptionRow('Carrier', carrier)}
+                {this.renderDescriptionRow('Country', country)}
+                {this.renderDescriptionRow('Phone Type', phoneType)}
+            </View>
+        );
+    };
+
+    renderDescriptionRow = (title, value) => {
+        return (
+            <View style={styles.descriptionRow}>
+                <Text
+                    numberOfLines={1}
+                    ellipsizeMode='tail'
+                    style={styles.descriptionRowText}>
+                    {`${title}:`}
+                </Text>
+                <Text
+                    numberOfLines={1}
+                    ellipsizeMode='tail'
+                    style={styles.descriptionRowValue}>
+                    {value ? value : ''}
+                </Text>
+            </View>
+        );
+    };
+
     render() {
         const timeline = this.state.history ? (
             <Timeline
@@ -78,8 +108,7 @@ export default class HistoryTab extends Component {
                     padding: 5,
                     borderRadius: 10
                 }}
-                titleStyle={{color: '#ffffff', marginTop: -8}}
-                descriptionStyle={{color: '#EAE6E5'}}
+                titleStyle={{color: '#ffffff', marginTop: -12, fontSize: 18, fontWeight: 'bold'}}
                 options={{
                     style: {paddingTop: 5},
                     enableEmptySections: true
@@ -120,5 +149,29 @@ const styles = StyleSheet.create({
         fontSize: 28,
         alignSelf: 'center',
         textAlign: 'center'
-    }
+    },
+    descriptionContainer: {
+        marginTop: 10,
+        marginBottom: 4,
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-evenly'
+    },
+    descriptionRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    descriptionRowText: {
+        color: '#EAE6E5',
+        fontWeight: 'normal',
+        textAlign: 'left',
+    },
+    descriptionRowValue: {
+        color: '#EAE6E5',
+        fontWeight: 'normal',
+        textAlign: 'right',
+        flexShrink: 1,
+        marginLeft: 20,
+    },
+
 });
