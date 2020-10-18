@@ -97,20 +97,14 @@ export default class HistoryTab extends Component {
             <Timeline
                 data={this.state.timelineData}
                 circleSize={20}
-                iconStyle={{marginTop: 4}}
+                iconStyle={styles.timelineIcon}
                 circleColor="#212121"
                 lineColor="#C62828"
-                timeContainerStyle={{minWidth: 52, marginTop: 0}}
-                timeStyle={{
-                    textAlign: 'center',
-                    backgroundColor: '#306BAC',
-                    color: 'white',
-                    padding: 5,
-                    borderRadius: 10
-                }}
-                titleStyle={{color: '#ffffff', marginTop: -12, fontSize: 18, fontWeight: 'bold'}}
+                timeContainerStyle={styles.timeContainer}
+                timeStyle={styles.time}
+                titleStyle={styles.timelineTitle}
                 options={{
-                    style: {paddingTop: 5},
+                    style: styles.timelineAdditional,
                     enableEmptySections: true
                 }}
                 innerCircle={'icon'}
@@ -173,5 +167,27 @@ const styles = StyleSheet.create({
         flexShrink: 1,
         marginLeft: 20,
     },
-
+    timelineIcon: {
+        marginTop: 4
+    },
+    timeContainer: {
+        minWidth: 52,
+        marginTop: 0
+    },
+    time: {
+        textAlign: 'center',
+        backgroundColor: '#306BAC',
+        color: 'white',
+        padding: 5,
+        borderRadius: 10
+    },
+    timelineTitle: {
+        color: '#ffffff',
+        marginTop: -12,
+        fontSize: 18,
+        fontWeight: 'bold'
+    },
+    timelineAdditional: {
+        paddingTop: 5
+    }
 });

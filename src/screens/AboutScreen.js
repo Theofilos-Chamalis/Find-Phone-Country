@@ -7,8 +7,6 @@ export default () => {
         Linking.openURL(
             'mailto:theofxam@gmail.com?cc=&subject=Find Phone Country&body='
         )
-            .then(() => {
-            })
             .catch(() => {
                 Alert.alert(
                     'Error',
@@ -18,24 +16,20 @@ export default () => {
     };
 
     return (
-        <View style={styles.containerStyle}>
+        <View style={styles.container}>
             <Image
                 source={require('../../assets/globenphone.png')}
-                style={styles.imageStyle}
+                style={styles.image}
             />
-            <View style={styles.textGroupStyle}>
-                <Text style={styles.textHead1Style}> Find Phone Country </Text>
-                <Text style={styles.textHead2Style}>Version {packageJson.version}</Text>
-                <Text style={styles.textParagraphStyle}>
+            <View style={styles.textGroup}>
+                <Text style={styles.textHeadPrimary}> Find Phone Country </Text>
+                <Text style={styles.textHeadSecondary}>Version {packageJson.version}</Text>
+                <Text textBreakStrategy='balanced' style={styles.textParagraph}>
                     This app was created by Theofilos Chamalis. For any questions,
                     suggestions or donations feel free to contact me at:
                 </Text>
                 <Text
-                    style={{
-                        ...styles.textParagraphStyle,
-                        color: 'red',
-                        textDecorationLine: 'underline'
-                    }}
+                    style={styles.emailText}
                     onPress={onSendEmail}>
                     theofxam@gmail.com
                 </Text>
@@ -45,38 +39,44 @@ export default () => {
 };
 
 const styles = StyleSheet.create({
-    containerStyle: {
+    container: {
         backgroundColor: '#212121',
         flex: 10,
         flexDirection: 'column',
         justifyContent: 'space-between'
     },
-    imageStyle: {
+    image: {
         flex: 4,
         alignSelf: 'center',
         resizeMode: 'center'
     },
-    textGroupStyle: {
+    textGroup: {
         flex: 6,
         paddingLeft: 24,
         paddingRight: 24
     },
-    textHead1Style: {
+    textHeadPrimary: {
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',
         paddingBottom: 4,
         fontSize: 30
     },
-    textHead2Style: {
+    textHeadSecondary: {
         color: 'white',
         textAlign: 'center',
         paddingBottom: 12,
         fontSize: 28
     },
-    textParagraphStyle: {
+    textParagraph: {
         color: 'white',
         textAlign: 'center',
         fontSize: 18
+    },
+    emailText: {
+        textAlign: 'center',
+        fontSize: 18,
+        color: 'red',
+        textDecorationLine: 'underline'
     }
 });
