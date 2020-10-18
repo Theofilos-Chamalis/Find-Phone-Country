@@ -7,17 +7,20 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "build": "cd android && ./gradlew assembleRelease",
+    "clean_android": "cd android && ./gradlew clean && cd ..",
+    "hard_clean_android": "watchmwatchman watch-del-all && rm -rf node_modules/ && npm i && rm -rf /tmp/metro-* && npm run clean_android && npm run start --reset-cache",
     "test": "react-native run-android --variant=release",
     "dev": "react-native run-android",
     "start": "react-native start",
     "test-code": "jest"
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^1.12.0",
+    "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.10",
     "date-fns": "^2.16.1",
+    "fbjs": "^3.0.0",
     "native-base": "^2.13.14",
-    "react": "16.13.1",
+    "react": "16.14.0",
     "react-native": "0.63.3",
     "react-native-action-sheet": "^2.2.0",
     "react-native-gesture-handler": "^1.8.0",
@@ -34,13 +37,13 @@
     "react-navigation-tabs": "^2.9.2"
   },
   "devDependencies": {
-    "@babel/core": "7.11.6",
-    "@babel/runtime": "7.11.2",
+    "@babel/core": "7.12.3",
+    "@babel/runtime": "7.12.1",
     "@react-native-community/eslint-config": "^2.0.0",
-    "babel-jest": "26.3.0",
-    "jest": "26.4.2",
+    "babel-jest": "26.5.2",
+    "jest": "26.5.3",
     "metro-react-native-babel-preset": "0.63.0",
-    "react-test-renderer": "16.13.1"
+    "react-test-renderer": "16.14.0"
   },
   "jest": {
     "preset": "react-native"
