@@ -61,8 +61,6 @@ export default class HomeTab extends PureComponent {
     };
 
     componentDidMount = () => {
-        SplashScreen.hide();
-
         this.willFocusSubscription = this.props.navigation.addListener('willFocus', () => {
             this.keyboardDidShowListener = Keyboard.addListener(
                 'keyboardDidShow',
@@ -80,6 +78,8 @@ export default class HomeTab extends PureComponent {
             this.keyboardDidHideListener && this.keyboardDidHideListener.remove();
             this.setState({keyboardActive: false});
         });
+
+        SplashScreen.hide();
     };
 
     onChangeFormNumber = (text) => {
