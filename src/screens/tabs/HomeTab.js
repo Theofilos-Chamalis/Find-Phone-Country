@@ -1,5 +1,5 @@
 import {Button, Icon, Text} from 'native-base';
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {Alert, Image, Keyboard, PermissionsAndroid, StatusBar, StyleSheet, TextInput, View} from 'react-native';
 import {selectContactPhone} from 'react-native-select-contact';
 import SplashScreen from 'react-native-splash-screen';
@@ -8,7 +8,7 @@ import fetchNumberInfo from '../../api/fetchNumberInfo';
 import capitalizeFirstLetter from '../../utils/stringUtils';
 import {saveRecord} from '../../db/asyncStorageProvider';
 
-export default class HomeTab extends Component {
+export default class HomeTab extends PureComponent {
     state = {
         keyboardActive: false
     };

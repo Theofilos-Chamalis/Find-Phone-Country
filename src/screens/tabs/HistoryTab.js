@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {StatusBar, StyleSheet, Text, View} from 'react-native';
 import Timeline from 'react-native-timeline-flatlist';
 import format from 'date-fns/format';
 
 import {getAllRecords} from '../../db/asyncStorageProvider';
 
-export default class HistoryTab extends Component {
+export default class HistoryTab extends PureComponent {
     constructor(props) {
         super(props);
 
