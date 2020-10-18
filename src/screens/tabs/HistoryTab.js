@@ -93,7 +93,7 @@ export default class HistoryTab extends Component {
     };
 
     render() {
-        const timeline = this.state.history ? (
+        const renderTimeline = this.state.history ? (
             <Timeline
                 data={this.state.timelineData}
                 circleSize={20}
@@ -103,6 +103,7 @@ export default class HistoryTab extends Component {
                 timeContainerStyle={styles.timeContainer}
                 timeStyle={styles.time}
                 titleStyle={styles.timelineTitle}
+                listViewContainerStyle={styles.listViewContainer}
                 options={{
                     style: styles.timelineAdditional,
                     enableEmptySections: true
@@ -118,7 +119,7 @@ export default class HistoryTab extends Component {
         return (
             <View style={styles.container}>
                 <StatusBar backgroundColor="#B71C1C"/>
-                {timeline}
+                {renderTimeline}
             </View>
         );
     }
@@ -127,10 +128,12 @@ export default class HistoryTab extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 10,
+        paddingLeft: 18,
+        paddingRight: 18,
         backgroundColor: '#212121'
+    },
+    listViewContainer: {
+        paddingVertical: 18
     },
     textContainer: {
         flex: 1,
@@ -145,8 +148,8 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     descriptionContainer: {
-        marginTop: 10,
-        marginBottom: 4,
+        marginTop: 5,
+        marginBottom: 10,
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-evenly'
