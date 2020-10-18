@@ -1,5 +1,6 @@
 import React from 'react';
 import {Alert, Image, Linking, StyleSheet, Text, View} from 'react-native';
+import packageJson from '../package.json';
 
 export default () => {
     const onSendEmail = () => {
@@ -24,7 +25,7 @@ export default () => {
             />
             <View style={styles.textGroupStyle}>
                 <Text style={styles.textHead1Style}> Find Phone Country </Text>
-                <Text style={styles.textHead2Style}>Version 3.4</Text>
+                <Text style={styles.textHead2Style}>Version {packageJson.version}</Text>
                 <Text style={styles.textParagraphStyle}>
                     This app was created by Theofilos Chamalis. For any questions,
                     suggestions or donations feel free to contact me at:
