@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "build": "cd android && ./gradlew assembleRelease",
     "clean_android": "cd android && ./gradlew clean && cd ..",
-    "hard_clean_android": "watchmwatchman watch-del-all && rm -rf node_modules/ && npm i && rm -rf /tmp/metro-* && npm run clean_android && npm run start --reset-cache",
+    "hard_clean_android": "watchman watch-del-all && rm -rf node_modules/ && npm i && rm -rf /tmp/metro-* && npm run clean_android && npm run start --reset-cache",
     "test": "react-native run-android --variant=release",
     "dev": "react-native run-android",
     "start": "react-native start",
