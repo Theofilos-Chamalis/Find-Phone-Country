@@ -1,11 +1,11 @@
 import React from 'react';
 import {Icon} from 'native-base';
-import {createBottomTabNavigator} from 'react-navigation-tabs';
+import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 
 import HomeTab from '../../screens/tabs/HomeTab';
 import HistoryTab from '../../screens/tabs/HistoryTab';
 
-const MainTabNavigator = createBottomTabNavigator(
+const MainTabNavigator = createMaterialTopTabNavigator(
     {
         Home: {
             screen: HomeTab,
@@ -27,7 +27,7 @@ const MainTabNavigator = createBottomTabNavigator(
         }
     },
     {
-        animationEnabled: true,
+        lazy: true,
         swipeEnabled: true,
         tabBarPosition: 'bottom',
         tabBarOptions: {
@@ -40,7 +40,7 @@ const MainTabNavigator = createBottomTabNavigator(
             },
             style: {
                 backgroundColor: '#B71C1C',
-                paddingTop: 4,
+                height: '14%',
                 borderTopWidth: 0
             },
             activeTintColor: '#ffffff',

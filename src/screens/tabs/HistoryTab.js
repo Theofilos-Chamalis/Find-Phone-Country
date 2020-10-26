@@ -128,12 +128,13 @@ export default class HistoryTab extends PureComponent {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingLeft: 18,
-        paddingRight: 18,
+        paddingLeft: 1,
+        paddingRight: 1,
         backgroundColor: '#212121'
     },
     listViewContainer: {
-        paddingVertical: 18
+        paddingVertical: 17,
+        paddingHorizontal: 17
     },
     textContainer: {
         flex: 1,

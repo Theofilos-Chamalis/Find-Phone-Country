@@ -290,7 +290,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#212121',
         flex: 10,
         flexDirection: 'column',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        paddingBottom: 16
     },
     imageStyle: {
         flex: 4,
