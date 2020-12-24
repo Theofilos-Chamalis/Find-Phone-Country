@@ -42,7 +42,7 @@ git clone https://github.com/Theofilos-Chamalis/Find-Phone-Country.git
 cd Find-Phone-Country && yarn install
 
 # Register your personal API keys at numverify.com and create a keys file
-Directory: api/keys.js
+Directory: api/keys.ts
 ```
 
 ```bash
