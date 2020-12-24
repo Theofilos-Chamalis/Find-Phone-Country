@@ -190,6 +190,7 @@ export default class HomeTab extends PureComponent {
                 <Text
                     numberOfLines={2}
                     ellipsizeMode='tail'
+                    textBreakStrategy={'balanced'}
                     style={
                         this.state.keyboardActive
                             ? styles.infoValueKeyboardUp
@@ -353,7 +354,7 @@ const styles = StyleSheet.create({
         fontWeight: 'normal',
         textAlign: 'right',
         flexShrink: 1,
-        marginLeft: 8,
+        marginLeft: 26,
     },
     infoValueKeyboardUp: {
         color: 'white',

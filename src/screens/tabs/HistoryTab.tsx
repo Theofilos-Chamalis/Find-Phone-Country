@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
         fontWeight: 'normal',
         textAlign: 'right',
         flexShrink: 1,
-        marginLeft: 20,
+        marginLeft: 52,
     },
     timelineIcon: {
         marginTop: 4
