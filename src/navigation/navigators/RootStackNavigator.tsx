@@ -7,10 +7,12 @@ import navOptions from '../navigationOptions/CommonNavigationOptions';
 const RootStackNavigator = createStackNavigator({
         Main: {
             screen: MainTabNavigator,
+            // @ts-ignore
             navigationOptions: navOptions
         },
         About: {
             screen: AboutScreen,
+            // @ts-ignore
             navigationOptions: navOptions
         }
     },

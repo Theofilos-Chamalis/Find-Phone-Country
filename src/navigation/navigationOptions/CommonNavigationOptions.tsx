@@ -2,7 +2,7 @@ import React from 'react';
 import {TouchableWithoutFeedback, View} from 'react-native';
 import {Icon} from 'native-base';
 
-const backButton = (navigation) => {
+const backButton = (navigation: any) => {
     if (navigation.state.routeName === 'About') {
         return (
             <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
@@ -16,7 +16,7 @@ const backButton = (navigation) => {
     return <View/>;
 };
 
-const navOptions = ({navigation}) => {
+const navOptions = ({navigation}: any) => {
     return {
         headerTitle: 'Find Phone Country',
         headerStyle: {

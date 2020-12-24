@@ -1,6 +1,6 @@
 import returnRandomAPIKey from './keyProvider';
 
-const fetchNumberInfo = async (phoneNumber) => {
+const fetchNumberInfo = async (phoneNumber: string) => {
     const numVerifyUrl = `http://apilayer.net/api/validate?access_key=${returnRandomAPIKey()}&number=${phoneNumber}&country_code=&format=1`;
 
     try {

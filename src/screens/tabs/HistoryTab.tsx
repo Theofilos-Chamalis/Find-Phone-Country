@@ -6,7 +6,7 @@ import format from 'date-fns/format';
 import {getAllRecords} from '../../db/asyncStorageProvider';
 
 export default class HistoryTab extends PureComponent {
-    constructor(props) {
+    constructor(props: any) {
         super(props);
 
         this.state = {
@@ -19,7 +19,7 @@ export default class HistoryTab extends PureComponent {
         this.willFocusSubscription = this.props.navigation.addListener('willFocus', () => {
             getAllRecords()
                 .then(async (results) => {
-                    if (results.length > 0) {
+                    if (results?.length > 0) {
                         await this.setState({history: true});
                         this.fillTimeline(results);
                     } else {

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
-export const saveRecord = async (payload) => {
+export const saveRecord = async (payload: string) => {
     try {
         await AsyncStorage.setItem(
             new Date().getTime().toString(),
@@ -11,7 +11,7 @@ export const saveRecord = async (payload) => {
     }
 };
 
-export const getRecord = async (key) => {
+export const getRecord = async (key: string) => {
     try {
         return (await AsyncStorage.getItem(key)) || '';
     } catch (error) {
@@ -19,7 +19,7 @@ export const getRecord = async (key) => {
     }
 };
 
-export const deleteRecord = async (key) => {
+export const deleteRecord = async (key: string) => {
     try {
         await AsyncStorage.removeItem(key);
     } catch (error) {
@@ -37,8 +37,8 @@ export const getAllRecordKeys = async () => {
 
 export const getAllRecords = async () => {
     return getAllRecordKeys()
-        .then((keysArray) => {
-            return AsyncStorage.multiGet(keysArray, (err, resultArray) => {
+        .then((keysArray: string[] | undefined) => {
+            return keysArray && AsyncStorage.multiGet(keysArray, (err, resultArray) => {
                 err ? console.log(`Error retrieving all items: ${err}`) : resultArray;
             });
         })
