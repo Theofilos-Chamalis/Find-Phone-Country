@@ -8,12 +8,24 @@ import fetchNumberInfo from '../../api/fetchNumberInfo';
 import capitalizeFirstLetter from '../../utils/stringUtils';
 import {saveRecord} from '../../db/asyncStorageProvider';
 
+interface homeTabState {
+    keyboardActive: boolean,
+    phone?: string,
+    carrier?: string,
+    countryOfOrigin?: string,
+    phoneType?: string
+}
+
 export default class HomeTab extends PureComponent {
-    state = {
+    state: homeTabState = {
         keyboardActive: false
     };
+    private keyboardDidShowListener: any;
+    private keyboardDidHideListener: any;
+    private willBlurSubscription: any;
+    private willFocusSubscription: any;
 
-    constructor(props) {
+    constructor(props: any) {
         super(props);
         this.state = {
             keyboardActive: false,
@@ -61,6 +73,7 @@ export default class HomeTab extends PureComponent {
     };
 
     componentDidMount = () => {
+        // @ts-ignore
         this.willFocusSubscription = this.props.navigation.addListener('willFocus', () => {
             this.keyboardDidShowListener = Keyboard.addListener(
                 'keyboardDidShow',
@@ -73,6 +86,7 @@ export default class HomeTab extends PureComponent {
             this.setState({keyboardActive: false});
         });
 
+        // @ts-ignore
         this.willBlurSubscription = this.props.navigation.addListener('willBlur', () => {
             this.keyboardDidShowListener && this.keyboardDidShowListener.remove();
             this.keyboardDidHideListener && this.keyboardDidHideListener.remove();
@@ -82,7 +96,7 @@ export default class HomeTab extends PureComponent {
         SplashScreen.hide();
     };
 
-    onChangeFormNumber = (text) => {
+    onChangeFormNumber = (text: string) => {
         this.setState({
             phone: text.replace(/[^0-9+]/g, '')
         });
@@ -117,7 +131,7 @@ export default class HomeTab extends PureComponent {
     };
 
     onSubmitFormNumber = () => {
-        if (this.state.phone.length > 5) {
+        if (this?.state?.phone && this.state.phone.length > 5) {
             fetchNumberInfo(this.state.phone).then((apiResponse) => {
                 if (apiResponse === 'error') {
                     Alert.alert('Error', 'Please check your internet connection!');
@@ -137,10 +151,10 @@ export default class HomeTab extends PureComponent {
                             },
                             () => {
                                 saveRecord({
-                                    phone: this.state.phone,
-                                    carrier: this.state.carrier,
-                                    countryOfOrigin: this.state.countryOfOrigin,
-                                    phoneType: this.state.phoneType
+                                    phone: this.state.phone || '',
+                                    carrier: this.state.carrier || '',
+                                    countryOfOrigin: this.state.countryOfOrigin || '',
+                                    phoneType: this.state.phoneType || ''
                                 }).catch();
                             }
                         );
@@ -160,7 +174,7 @@ export default class HomeTab extends PureComponent {
         }
     };
 
-    renderInfoRow = (title, value) => {
+    renderInfoRow = (title: string, value: string) => {
         return (
             <View style={styles.infoRow}>
                 <Text
@@ -274,9 +288,9 @@ export default class HomeTab extends PureComponent {
                 <View style={styles.inputAndTextContainer}>
                     {this.renderInputField()}
                     <View style={styles.infoGroup}>
-                        {this.renderInfoRow('Country Of Origin', this.state.countryOfOrigin)}
-                        {this.renderInfoRow('Phone Type', this.state.phoneType)}
-                        {this.renderInfoRow('Mobile Carrier', this.state.carrier)}
+                        {this.renderInfoRow('Country Of Origin', this.state.countryOfOrigin || '')}
+                        {this.renderInfoRow('Phone Type', this.state.phoneType || '')}
+                        {this.renderInfoRow('Mobile Carrier', this.state.carrier || '')}
                     </View>
                 </View>
                 {this.renderButtonGroup()}

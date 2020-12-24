@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
-export const saveRecord = async (payload: string) => {
+export const saveRecord = async (payload: { carrier: string; phoneType: string; phone: string; countryOfOrigin: string }) => {
     try {
         await AsyncStorage.setItem(
             new Date().getTime().toString(),
