@@ -228,12 +228,14 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
                 style={styles.formStyle}>
                 <TextInput
                     style={styles.inputFormNumberStyle}
-                    keyboardType="numeric"
+                    keyboardType="phone-pad"
                     onChangeText={(enteredNumber) =>
                         this.onChangeFormNumber(enteredNumber)
                     }
                     placeholder="Enter Phone Number"
                     autoCapitalize={'none'}
+                    textAlign={'center'}
+                    autoCompleteType={'tel'}
                     placeholderTextColor="#dedede"
                     onSubmitEditing={() => this.onSubmitFormNumber()}
                     selectionColor="red"
