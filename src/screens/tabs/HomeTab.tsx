@@ -1,35 +1,74 @@
 import {Button, Icon, Text} from 'native-base';
 import React, {PureComponent} from 'react';
-import {Alert, Image, Keyboard, PermissionsAndroid, StatusBar, StyleSheet, TextInput, View} from 'react-native';
+import {
+    Alert,
+    Image,
+    Keyboard,
+    PermissionsAndroid,
+    SafeAreaView,
+    ScrollView,
+    StatusBar,
+    StyleSheet,
+    TextInput,
+    View
+} from 'react-native';
 import {selectContactPhone} from 'react-native-select-contact';
 import SplashScreen from 'react-native-splash-screen';
 
 import fetchNumberInfo from '../../api/fetchNumberInfo';
 import capitalizeFirstLetter from '../../utils/stringUtils';
 import {saveRecord} from '../../db/asyncStorageProvider';
+import {NavigationActions} from "react-navigation";
 
-export default class HomeTab extends PureComponent {
-    state = {
-        keyboardActive: false
-    };
+interface homeTabState {
+    phone?: string,
+    carrier?: string,
+    countryOfOrigin?: string,
+    phoneType?: string
+}
 
-    constructor(props) {
+export default class HomeTab extends PureComponent<{}, homeTabState> {
+    private keyboardDidShowListener: any;
+    private keyboardDidHideListener: any;
+    private willBlurSubscription: any;
+    private willFocusSubscription: any;
+    private showImage: boolean;
+
+    constructor(props: any) {
         super(props);
         this.state = {
-            keyboardActive: false,
             phone: '',
             carrier: '',
             countryOfOrigin: '',
             phoneType: ''
         };
+        this.showImage = true;
     }
 
+    // @ts-ignore
+    static navigationOptions = ({navigation}) => ({
+        tabBarVisible: navigation?.state?.params?.showTabBar,
+        animationEnabled: true
+    });
+
+    toggleTabBar = (enable: boolean) => {
+        const setParamsAction = NavigationActions.setParams({
+            params: {showTabBar: enable},
+            // @ts-ignore
+            key: this.props.navigation.state.key,
+        });
+        // @ts-ignore
+        this.props.navigation.dispatch(setParamsAction);
+    };
+
     _keyboardDidShow = () => {
-        this.setState({keyboardActive: true});
+        this.showImage = false;
+        this.toggleTabBar(false);
     };
 
     _keyboardDidHide = () => {
-        this.setState({keyboardActive: false});
+        this.showImage = true;
+        this.toggleTabBar(true);
     };
 
     requestContactsPermission = async () => {
@@ -53,14 +92,17 @@ export default class HomeTab extends PureComponent {
     };
 
     componentWillUnmount = () => {
+        this.showImage = true;
         this.keyboardDidShowListener && this.keyboardDidShowListener.remove();
         this.keyboardDidHideListener && this.keyboardDidHideListener.remove();
         this.willBlurSubscription && this.willBlurSubscription.remove();
         this.willFocusSubscription && this.willFocusSubscription.remove();
-        this.setState({keyboardActive: false});
+        this.toggleTabBar(true);
     };
 
     componentDidMount = () => {
+        this.showImage = true;
+        // @ts-ignore
         this.willFocusSubscription = this.props.navigation.addListener('willFocus', () => {
             this.keyboardDidShowListener = Keyboard.addListener(
                 'keyboardDidShow',
@@ -70,19 +112,19 @@ export default class HomeTab extends PureComponent {
                 'keyboardDidHide',
                 this._keyboardDidHide
             );
-            this.setState({keyboardActive: false});
+            this.toggleTabBar(true);
         });
 
+        // @ts-ignore
         this.willBlurSubscription = this.props.navigation.addListener('willBlur', () => {
             this.keyboardDidShowListener && this.keyboardDidShowListener.remove();
             this.keyboardDidHideListener && this.keyboardDidHideListener.remove();
-            this.setState({keyboardActive: false});
         });
 
         SplashScreen.hide();
     };
 
-    onChangeFormNumber = (text) => {
+    onChangeFormNumber = (text: string) => {
         this.setState({
             phone: text.replace(/[^0-9+]/g, '')
         });
@@ -117,7 +159,7 @@ export default class HomeTab extends PureComponent {
     };
 
     onSubmitFormNumber = () => {
-        if (this.state.phone.length > 5) {
+        if (this?.state?.phone && this.state.phone.length > 5) {
             fetchNumberInfo(this.state.phone).then((apiResponse) => {
                 if (apiResponse === 'error') {
                     Alert.alert('Error', 'Please check your internet connection!');
@@ -137,10 +179,10 @@ export default class HomeTab extends PureComponent {
                             },
                             () => {
                                 saveRecord({
-                                    phone: this.state.phone,
-                                    carrier: this.state.carrier,
-                                    countryOfOrigin: this.state.countryOfOrigin,
-                                    phoneType: this.state.phoneType
+                                    phone: this.state.phone || '',
+                                    carrier: this.state.carrier || '',
+                                    countryOfOrigin: this.state.countryOfOrigin || '',
+                                    phoneType: this.state.phoneType || ''
                                 }).catch();
                             }
                         );
@@ -160,27 +202,20 @@ export default class HomeTab extends PureComponent {
         }
     };
 
-    renderInfoRow = (title, value) => {
+    renderInfoRow = (title: string, value: string) => {
         return (
             <View style={styles.infoRow}>
                 <Text
                     numberOfLines={1}
                     ellipsizeMode='tail'
-                    style={
-                        this.state.keyboardActive
-                            ? styles.infoTextKeyboardUp
-                            : styles.infoText
-                    }>
+                    style={styles.infoText}>
                     {`${title}:`}
                 </Text>
                 <Text
                     numberOfLines={2}
                     ellipsizeMode='tail'
-                    style={
-                        this.state.keyboardActive
-                            ? styles.infoValueKeyboardUp
-                            : styles.infoValue
-                    }>
+                    textBreakStrategy={'balanced'}
+                    style={styles.infoValue}>
                     {value ? value : ''}
                 </Text>
             </View>
@@ -190,19 +225,17 @@ export default class HomeTab extends PureComponent {
     renderInputField = () => {
         return (
             <View
-                style={
-                    this.state.keyboardActive
-                        ? styles.formStyleKeyboardUp
-                        : styles.formStyle
-                }>
+                style={styles.formStyle}>
                 <TextInput
                     style={styles.inputFormNumberStyle}
-                    keyboardType="numeric"
+                    keyboardType="phone-pad"
                     onChangeText={(enteredNumber) =>
                         this.onChangeFormNumber(enteredNumber)
                     }
                     placeholder="Enter Phone Number"
                     autoCapitalize={'none'}
+                    textAlign={'center'}
+                    autoCompleteType={'tel'}
                     placeholderTextColor="#dedede"
                     onSubmitEditing={() => this.onSubmitFormNumber()}
                     selectionColor="red"
@@ -218,69 +251,72 @@ export default class HomeTab extends PureComponent {
 
     renderButtonGroup = () => {
         return (
-            this.state.keyboardActive ? null : (
-                <View style={styles.buttonGroup}>
-                    <Button
-                        iconLeft
-                        light
-                        rounded
-                        bordered
-                        onPress={() => {
-                            this.onLoadContacts().catch();
-                        }}>
-                        <Icon name="people-outline" style={styles.buttonText}/>
-                        <Text style={styles.buttonText}>LOAD</Text>
-                    </Button>
-                    <Button
-                        iconLeft
-                        light
-                        rounded
-                        bordered
-                        onPress={() => {
-                            this.onSubmitFormNumber();
-                        }}>
-                        <Icon name="search" style={styles.buttonText}/>
-                        <Text style={styles.buttonText}>FIND</Text>
-                    </Button>
-                    <Button
-                        iconLeft
-                        light
-                        rounded
-                        bordered
-                        onPress={() => {
-                            this.onClearFormNumber();
-                        }}>
-                        <Icon name="trash" style={styles.buttonText}/>
-                        <Text style={styles.buttonText}>CLEAR</Text>
-                    </Button>
-                </View>
-            ));
+            <View style={styles.buttonGroup}>
+                <Button
+                    iconLeft
+                    light
+                    rounded
+                    bordered
+                    onPress={() => {
+                        this.onLoadContacts().catch();
+                    }}>
+                    <Icon name="people-outline" style={styles.buttonText}/>
+                    <Text style={styles.buttonText}>LOAD</Text>
+                </Button>
+                <Button
+                    iconLeft
+                    light
+                    rounded
+                    bordered
+                    onPress={() => {
+                        this.onSubmitFormNumber();
+                    }}>
+                    <Icon name="search" style={styles.buttonText}/>
+                    <Text style={styles.buttonText}>FIND</Text>
+                </Button>
+                <Button
+                    iconLeft
+                    light
+                    rounded
+                    bordered
+                    onPress={() => {
+                        this.onClearFormNumber();
+                    }}>
+                    <Icon name="trash" style={styles.buttonText}/>
+                    <Text style={styles.buttonText}>CLEAR</Text>
+                </Button>
+            </View>
+        );
     };
 
     render() {
         return (
-            <View style={styles.containerStyle}>
+            <SafeAreaView style={styles.containerStyle}>
                 <StatusBar backgroundColor="#B71C1C"/>
-
-                <Image
-                    source={require('../../../assets/globenphone.png')}
-                    style={
-                        this.state.keyboardActive
-                            ? styles.imageStyleKeyboardUp
-                            : styles.imageStyle
+                <ScrollView
+                    contentContainerStyle={{height: '100%'}}
+                    automaticallyAdjustContentInsets={true}
+                >
+                    {
+                        this.showImage ?
+                            <Image
+                                source={require('../../../assets/globenphone.png')}
+                                style={styles.imageStyle}
+                            /> :
+                            null
                     }
-                />
-
-                <View style={styles.inputAndTextContainer}>
-                    {this.renderInputField()}
-                    <View style={styles.infoGroup}>
-                        {this.renderInfoRow('Country Of Origin', this.state.countryOfOrigin)}
-                        {this.renderInfoRow('Phone Type', this.state.phoneType)}
-                        {this.renderInfoRow('Mobile Carrier', this.state.carrier)}
+                    <View
+                        style={this.showImage ? styles.inputAndTextContainer : styles.inputAndTextContainerWithKeyboard}>
+                        {this.renderInputField()}
+                        <View style={styles.infoGroup}>
+                            {this.renderInfoRow('Country Of Origin', this.state.countryOfOrigin || '')}
+                            {this.renderInfoRow('Phone Type', this.state.phoneType || '')}
+                            {this.renderInfoRow('Mobile Carrier', this.state.carrier || '')}
+                        </View>
+                        {this.renderButtonGroup()}
                     </View>
-                </View>
-                {this.renderButtonGroup()}
-            </View>
+                </ScrollView>
+            </SafeAreaView>
         );
     }
 }
@@ -288,27 +324,18 @@ export default class HomeTab extends PureComponent {
 const styles = StyleSheet.create({
     containerStyle: {
         backgroundColor: '#212121',
-        flex: 10,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        paddingBottom: 16
+        height: '100%'
     },
     imageStyle: {
-        flex: 4,
+        maxHeight: '40%',
         alignSelf: 'center',
-        resizeMode: 'center'
-    },
-    imageStyleKeyboardUp: {
-        flex: 1,
-        paddingTop: 2,
-        alignSelf: 'center',
+        marginVertical: 20,
         resizeMode: 'center'
     },
     formStyle: {
-        flex: 1,
         alignSelf: 'center',
         minWidth: '80%',
-        paddingBottom: 8,
+        paddingBottom: 24,
         marginLeft: 40,
         marginRight: 50
     },
@@ -316,20 +343,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'white'
     },
-    formStyleKeyboardUp: {
-        flex: 1,
-        alignSelf: 'center',
-        minWidth: '80%',
-        paddingBottom: 4,
-        marginLeft: 40,
-        marginRight: 50
-    },
     infoText: {
-        color: 'white',
-        fontWeight: 'bold',
-        textAlign: 'left',
-    },
-    infoTextKeyboardUp: {
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'left',
@@ -339,36 +353,35 @@ const styles = StyleSheet.create({
         fontWeight: 'normal',
         textAlign: 'right',
         flexShrink: 1,
-        marginLeft: 8,
-    },
-    infoValueKeyboardUp: {
-        color: 'white',
-        fontWeight: 'normal',
-        textAlign: 'right',
-        flexShrink: 1,
-        marginLeft: 8
+        marginLeft: 26,
     },
     infoGroup: {
-        flex: 1.6,
         flexDirection: 'column',
         justifyContent: 'space-evenly'
     },
     infoRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 4
+        marginBottom: 5
     },
     buttonGroup: {
-        paddingTop: 40,
-        flex: 1,
+        paddingTop: 38,
         flexDirection: 'row',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
+        marginHorizontal: -20
     },
     buttonText: {
         color: 'white'
     },
     inputAndTextContainer: {
-        flex: 3,
+        height: '52%',
         paddingHorizontal: 32,
+        justifyContent: 'flex-end',
+        paddingVertical: 32
+    },
+    inputAndTextContainerWithKeyboard: {
+        height: '100%',
+        paddingHorizontal: 32,
+        justifyContent: 'center',
     }
 });

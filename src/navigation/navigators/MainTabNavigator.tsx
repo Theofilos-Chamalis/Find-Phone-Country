@@ -40,7 +40,7 @@ const MainTabNavigator = createMaterialTopTabNavigator(
             },
             style: {
                 backgroundColor: '#B71C1C',
-                height: '14%',
+                height: '12%',
                 borderTopWidth: 0
             },
             activeTintColor: '#ffffff',

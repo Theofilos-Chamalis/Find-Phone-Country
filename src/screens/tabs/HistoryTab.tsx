@@ -6,7 +6,9 @@ import format from 'date-fns/format';
 import {getAllRecords} from '../../db/asyncStorageProvider';
 
 export default class HistoryTab extends PureComponent {
-    constructor(props) {
+    private willFocusSubscription: any;
+
+    constructor(props: any) {
         super(props);
 
         this.state = {
@@ -16,10 +18,11 @@ export default class HistoryTab extends PureComponent {
     }
 
     componentDidMount = () => {
+        // @ts-ignore
         this.willFocusSubscription = this.props.navigation.addListener('willFocus', () => {
             getAllRecords()
                 .then(async (results) => {
-                    if (results.length > 0) {
+                    if (results && results?.length > 0) {
                         await this.setState({history: true});
                         this.fillTimeline(results);
                     } else {
@@ -36,16 +39,16 @@ export default class HistoryTab extends PureComponent {
         this.willFocusSubscription && this.willFocusSubscription.remove();
     };
 
-    fillTimeline = (data) => {
+    fillTimeline = (data: [string, (string | null)][]) => {
         const timelineArray = data.map((call, index) => {
             const timestamp = Number(call[0]);
             const dateString = (format(new Date(timestamp), 'dd/MM')).toString();
             const timeString = (format(new Date(timestamp), 'hh:mm')).toString();
 
-            const phone = JSON.parse(call[1]).phone;
-            const carrier = JSON.parse(call[1]).carrier;
-            const country = JSON.parse(call[1]).countryOfOrigin;
-            const phoneType = JSON.parse(call[1]).phoneType;
+            const phone = JSON.parse(call[1] as string).phone;
+            const carrier = JSON.parse(call[1] as string).carrier;
+            const country = JSON.parse(call[1] as string).countryOfOrigin;
+            const phoneType = JSON.parse(call[1] as string).phoneType;
             return {
                 time: `${dateString}\n${timeString}`,
                 title: `Phone #${index + 1}`,
@@ -62,7 +65,7 @@ export default class HistoryTab extends PureComponent {
         });
     };
 
-    renderDescription = (phone, carrier, country, phoneType) => {
+    renderDescription = (phone: string, carrier: string, country: string, phoneType: string) => {
         return (
             <View style={styles.descriptionContainer}>
                 {this.renderDescriptionRow('Phone', phone)}
@@ -73,7 +76,7 @@ export default class HistoryTab extends PureComponent {
         );
     };
 
-    renderDescriptionRow = (title, value) => {
+    renderDescriptionRow = (title: string, value: string) => {
         return (
             <View style={styles.descriptionRow}>
                 <Text
@@ -93,8 +96,10 @@ export default class HistoryTab extends PureComponent {
     };
 
     render() {
+        // @ts-ignore
         const renderTimeline = this.state.history ? (
             <Timeline
+                // @ts-ignore
                 data={this.state.timelineData}
                 circleSize={20}
                 iconStyle={styles.timelineIcon}
@@ -169,7 +174,7 @@ const styles = StyleSheet.create({
         fontWeight: 'normal',
         textAlign: 'right',
         flexShrink: 1,
-        marginLeft: 20,
+        marginLeft: 52,
     },
     timelineIcon: {
         marginTop: 4
