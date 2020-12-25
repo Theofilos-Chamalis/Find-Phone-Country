@@ -24,8 +24,7 @@ interface homeTabState {
     phone?: string,
     carrier?: string,
     countryOfOrigin?: string,
-    phoneType?: string,
-    showImage: boolean
+    phoneType?: string
 }
 
 export default class HomeTab extends PureComponent<{}, homeTabState> {
@@ -33,6 +32,7 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
     private keyboardDidHideListener: any;
     private willBlurSubscription: any;
     private willFocusSubscription: any;
+    private showImage: boolean;
 
     constructor(props: any) {
         super(props);
@@ -40,9 +40,9 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
             phone: '',
             carrier: '',
             countryOfOrigin: '',
-            phoneType: '',
-            showImage: true,
+            phoneType: ''
         };
+        this.showImage = true;
     }
 
     // @ts-ignore
@@ -62,12 +62,12 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
     };
 
     _keyboardDidShow = () => {
-        this.setState({showImage: false});
+        this.showImage = false;
         this.toggleTabBar(false);
     };
 
     _keyboardDidHide = () => {
-        this.setState({showImage: true});
+        this.showImage = true;
         this.toggleTabBar(true);
     };
 
@@ -92,15 +92,16 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
     };
 
     componentWillUnmount = () => {
+        this.showImage = true;
         this.keyboardDidShowListener && this.keyboardDidShowListener.remove();
         this.keyboardDidHideListener && this.keyboardDidHideListener.remove();
         this.willBlurSubscription && this.willBlurSubscription.remove();
         this.willFocusSubscription && this.willFocusSubscription.remove();
         this.toggleTabBar(true);
-        this.setState({showImage: true});
     };
 
     componentDidMount = () => {
+        this.showImage = true;
         // @ts-ignore
         this.willFocusSubscription = this.props.navigation.addListener('willFocus', () => {
             this.keyboardDidShowListener = Keyboard.addListener(
@@ -112,7 +113,6 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
                 this._keyboardDidHide
             );
             this.toggleTabBar(true);
-            this.setState({showImage: true});
         });
 
         // @ts-ignore
@@ -296,14 +296,15 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
                     automaticallyAdjustContentInsets={true}
                 >
                     {
-                        this.state.showImage ?
+                        this.showImage ?
                             <Image
                                 source={require('../../../assets/globenphone.png')}
                                 style={styles.imageStyle}
                             /> :
                             null
                     }
-                    <View style={styles.inputAndTextContainer}>
+                    <View
+                        style={this.showImage ? styles.inputAndTextContainer : styles.inputAndTextContainerWithKeyboard}>
                         {this.renderInputField()}
                         <View style={styles.infoGroup}>
                             {this.renderInfoRow('Country Of Origin', this.state.countryOfOrigin || '')}
@@ -375,5 +376,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 32,
         justifyContent: 'flex-end',
         paddingVertical: 32
+    },
+    inputAndTextContainerWithKeyboard: {
+        height: '100%',
+        paddingHorizontal: 32,
+        justifyContent: 'center',
     }
 });
