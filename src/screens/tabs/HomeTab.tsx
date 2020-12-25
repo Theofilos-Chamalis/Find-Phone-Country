@@ -10,7 +10,6 @@ import {saveRecord} from '../../db/asyncStorageProvider';
 import {NavigationActions} from "react-navigation";
 
 interface homeTabState {
-    keyboardActive: boolean,
     phone?: string,
     carrier?: string,
     countryOfOrigin?: string,
@@ -18,18 +17,15 @@ interface homeTabState {
 }
 
 export default class HomeTab extends PureComponent {
-    state: homeTabState = {
-        keyboardActive: false
-    };
     private keyboardDidShowListener: any;
     private keyboardDidHideListener: any;
     private willBlurSubscription: any;
     private willFocusSubscription: any;
+    private state: homeTabState
 
     constructor(props: any) {
         super(props);
         this.state = {
-            keyboardActive: false,
             phone: '',
             carrier: '',
             countryOfOrigin: '',
@@ -88,7 +84,6 @@ export default class HomeTab extends PureComponent {
         this.keyboardDidHideListener && this.keyboardDidHideListener.remove();
         this.willBlurSubscription && this.willBlurSubscription.remove();
         this.willFocusSubscription && this.willFocusSubscription.remove();
-        this.setState({keyboardActive: false});
         this.toggleTabBar(true);
     };
 
@@ -103,7 +98,6 @@ export default class HomeTab extends PureComponent {
                 'keyboardDidHide',
                 this._keyboardDidHide
             );
-            this.setState({keyboardActive: false});
             this.toggleTabBar(true);
         });
 
@@ -111,7 +105,6 @@ export default class HomeTab extends PureComponent {
         this.willBlurSubscription = this.props.navigation.addListener('willBlur', () => {
             this.keyboardDidShowListener && this.keyboardDidShowListener.remove();
             this.keyboardDidHideListener && this.keyboardDidHideListener.remove();
-            this.setState({keyboardActive: false});
         });
 
         SplashScreen.hide();
@@ -201,22 +194,14 @@ export default class HomeTab extends PureComponent {
                 <Text
                     numberOfLines={1}
                     ellipsizeMode='tail'
-                    style={
-                        this.state.keyboardActive
-                            ? styles.infoTextKeyboardUp
-                            : styles.infoText
-                    }>
+                    style={styles.infoText}>
                     {`${title}:`}
                 </Text>
                 <Text
                     numberOfLines={2}
                     ellipsizeMode='tail'
                     textBreakStrategy={'balanced'}
-                    style={
-                        this.state.keyboardActive
-                            ? styles.infoValueKeyboardUp
-                            : styles.infoValue
-                    }>
+                    style={styles.infoValue}>
                     {value ? value : ''}
                 </Text>
             </View>
@@ -226,11 +211,7 @@ export default class HomeTab extends PureComponent {
     renderInputField = () => {
         return (
             <View
-                style={
-                    this.state.keyboardActive
-                        ? styles.formStyleKeyboardUp
-                        : styles.formStyle
-                }>
+                style={styles.formStyle}>
                 <TextInput
                     style={styles.inputFormNumberStyle}
                     keyboardType="numeric"
@@ -254,43 +235,42 @@ export default class HomeTab extends PureComponent {
 
     renderButtonGroup = () => {
         return (
-            this.state.keyboardActive ? null : (
-                <View style={styles.buttonGroup}>
-                    <Button
-                        iconLeft
-                        light
-                        rounded
-                        bordered
-                        onPress={() => {
-                            this.onLoadContacts().catch();
-                        }}>
-                        <Icon name="people-outline" style={styles.buttonText}/>
-                        <Text style={styles.buttonText}>LOAD</Text>
-                    </Button>
-                    <Button
-                        iconLeft
-                        light
-                        rounded
-                        bordered
-                        onPress={() => {
-                            this.onSubmitFormNumber();
-                        }}>
-                        <Icon name="search" style={styles.buttonText}/>
-                        <Text style={styles.buttonText}>FIND</Text>
-                    </Button>
-                    <Button
-                        iconLeft
-                        light
-                        rounded
-                        bordered
-                        onPress={() => {
-                            this.onClearFormNumber();
-                        }}>
-                        <Icon name="trash" style={styles.buttonText}/>
-                        <Text style={styles.buttonText}>CLEAR</Text>
-                    </Button>
-                </View>
-            ));
+            <View style={styles.buttonGroup}>
+                <Button
+                    iconLeft
+                    light
+                    rounded
+                    bordered
+                    onPress={() => {
+                        this.onLoadContacts().catch();
+                    }}>
+                    <Icon name="people-outline" style={styles.buttonText}/>
+                    <Text style={styles.buttonText}>LOAD</Text>
+                </Button>
+                <Button
+                    iconLeft
+                    light
+                    rounded
+                    bordered
+                    onPress={() => {
+                        this.onSubmitFormNumber();
+                    }}>
+                    <Icon name="search" style={styles.buttonText}/>
+                    <Text style={styles.buttonText}>FIND</Text>
+                </Button>
+                <Button
+                    iconLeft
+                    light
+                    rounded
+                    bordered
+                    onPress={() => {
+                        this.onClearFormNumber();
+                    }}>
+                    <Icon name="trash" style={styles.buttonText}/>
+                    <Text style={styles.buttonText}>CLEAR</Text>
+                </Button>
+            </View>
+        );
     };
 
     render() {
@@ -300,11 +280,7 @@ export default class HomeTab extends PureComponent {
 
                 <Image
                     source={require('../../../assets/globenphone.png')}
-                    style={
-                        this.state.keyboardActive
-                            ? styles.imageStyleKeyboardUp
-                            : styles.imageStyle
-                    }
+                    style={styles.imageStyle}
                 />
 
                 <View style={styles.inputAndTextContainer}>
@@ -334,12 +310,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         resizeMode: 'center'
     },
-    imageStyleKeyboardUp: {
-        flex: 1,
-        paddingTop: 2,
-        alignSelf: 'center',
-        resizeMode: 'center'
-    },
     formStyle: {
         flex: 1,
         alignSelf: 'center',
@@ -352,20 +322,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'white'
     },
-    formStyleKeyboardUp: {
-        flex: 1,
-        alignSelf: 'center',
-        minWidth: '80%',
-        paddingBottom: 4,
-        marginLeft: 40,
-        marginRight: 50
-    },
     infoText: {
-        color: 'white',
-        fontWeight: 'bold',
-        textAlign: 'left',
-    },
-    infoTextKeyboardUp: {
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'left',
@@ -376,13 +333,6 @@ const styles = StyleSheet.create({
         textAlign: 'right',
         flexShrink: 1,
         marginLeft: 26,
-    },
-    infoValueKeyboardUp: {
-        color: 'white',
-        fontWeight: 'normal',
-        textAlign: 'right',
-        flexShrink: 1,
-        marginLeft: 8
     },
     infoGroup: {
         flex: 1.6,
