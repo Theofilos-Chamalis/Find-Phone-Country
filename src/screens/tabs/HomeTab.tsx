@@ -7,6 +7,7 @@ import SplashScreen from 'react-native-splash-screen';
 import fetchNumberInfo from '../../api/fetchNumberInfo';
 import capitalizeFirstLetter from '../../utils/stringUtils';
 import {saveRecord} from '../../db/asyncStorageProvider';
+import {NavigationActions} from "react-navigation";
 
 interface homeTabState {
     keyboardActive: boolean,
@@ -36,12 +37,30 @@ export default class HomeTab extends PureComponent {
         };
     }
 
+    // @ts-ignore
+    static navigationOptions = ({navigation}) => ({
+        tabBarVisible: navigation?.state?.params?.showTabBar,
+        animationEnabled: true
+    });
+
+    toggleTabBar = (enable: boolean) => {
+        const setParamsAction = NavigationActions.setParams({
+            params: {showTabBar: enable},
+            // @ts-ignore
+            key: this.props.navigation.state.key,
+        });
+        // @ts-ignore
+        this.props.navigation.dispatch(setParamsAction);
+    };
+
     _keyboardDidShow = () => {
         this.setState({keyboardActive: true});
+        this.toggleTabBar(false);
     };
 
     _keyboardDidHide = () => {
         this.setState({keyboardActive: false});
+        this.toggleTabBar(true);
     };
 
     requestContactsPermission = async () => {
@@ -70,6 +89,7 @@ export default class HomeTab extends PureComponent {
         this.willBlurSubscription && this.willBlurSubscription.remove();
         this.willFocusSubscription && this.willFocusSubscription.remove();
         this.setState({keyboardActive: false});
+        this.toggleTabBar(true);
     };
 
     componentDidMount = () => {
@@ -84,6 +104,7 @@ export default class HomeTab extends PureComponent {
                 this._keyboardDidHide
             );
             this.setState({keyboardActive: false});
+            this.toggleTabBar(true);
         });
 
         // @ts-ignore
