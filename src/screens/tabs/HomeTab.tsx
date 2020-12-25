@@ -360,7 +360,7 @@ const styles = StyleSheet.create({
     infoRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 4
+        marginBottom: 5
     },
     buttonGroup: {
         paddingTop: 38,
