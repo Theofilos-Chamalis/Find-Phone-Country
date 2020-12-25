@@ -1,6 +1,17 @@
 import {Button, Icon, Text} from 'native-base';
 import React, {PureComponent} from 'react';
-import {Alert, Image, Keyboard, PermissionsAndroid, StatusBar, StyleSheet, TextInput, View} from 'react-native';
+import {
+    Alert,
+    Image,
+    Keyboard,
+    PermissionsAndroid,
+    SafeAreaView,
+    ScrollView,
+    StatusBar,
+    StyleSheet,
+    TextInput,
+    View
+} from 'react-native';
 import {selectContactPhone} from 'react-native-select-contact';
 import SplashScreen from 'react-native-splash-screen';
 
@@ -13,7 +24,8 @@ interface homeTabState {
     phone?: string,
     carrier?: string,
     countryOfOrigin?: string,
-    phoneType?: string
+    phoneType?: string,
+    showImage: boolean
 }
 
 export default class HomeTab extends PureComponent<{}, homeTabState> {
@@ -28,7 +40,8 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
             phone: '',
             carrier: '',
             countryOfOrigin: '',
-            phoneType: ''
+            phoneType: '',
+            showImage: true,
         };
     }
 
@@ -49,10 +62,12 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
     };
 
     _keyboardDidShow = () => {
+        this.setState({showImage: false});
         this.toggleTabBar(false);
     };
 
     _keyboardDidHide = () => {
+        this.setState({showImage: true});
         this.toggleTabBar(true);
     };
 
@@ -82,6 +97,7 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
         this.willBlurSubscription && this.willBlurSubscription.remove();
         this.willFocusSubscription && this.willFocusSubscription.remove();
         this.toggleTabBar(true);
+        this.setState({showImage: true});
     };
 
     componentDidMount = () => {
@@ -96,6 +112,7 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
                 this._keyboardDidHide
             );
             this.toggleTabBar(true);
+            this.setState({showImage: true});
         });
 
         // @ts-ignore
@@ -272,24 +289,31 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
 
     render() {
         return (
-            <View style={styles.containerStyle}>
+            <SafeAreaView style={styles.containerStyle}>
                 <StatusBar backgroundColor="#B71C1C"/>
-
-                <Image
-                    source={require('../../../assets/globenphone.png')}
-                    style={styles.imageStyle}
-                />
-
-                <View style={styles.inputAndTextContainer}>
-                    {this.renderInputField()}
-                    <View style={styles.infoGroup}>
-                        {this.renderInfoRow('Country Of Origin', this.state.countryOfOrigin || '')}
-                        {this.renderInfoRow('Phone Type', this.state.phoneType || '')}
-                        {this.renderInfoRow('Mobile Carrier', this.state.carrier || '')}
+                <ScrollView
+                    contentContainerStyle={{height: '100%'}}
+                    automaticallyAdjustContentInsets={true}
+                >
+                    {
+                        this.state.showImage ?
+                            <Image
+                                source={require('../../../assets/globenphone.png')}
+                                style={styles.imageStyle}
+                            /> :
+                            null
+                    }
+                    <View style={styles.inputAndTextContainer}>
+                        {this.renderInputField()}
+                        <View style={styles.infoGroup}>
+                            {this.renderInfoRow('Country Of Origin', this.state.countryOfOrigin || '')}
+                            {this.renderInfoRow('Phone Type', this.state.phoneType || '')}
+                            {this.renderInfoRow('Mobile Carrier', this.state.carrier || '')}
+                        </View>
+                        {this.renderButtonGroup()}
                     </View>
-                </View>
-                {this.renderButtonGroup()}
-            </View>
+                </ScrollView>
+            </SafeAreaView>
         );
     }
 }
@@ -297,21 +321,18 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
 const styles = StyleSheet.create({
     containerStyle: {
         backgroundColor: '#212121',
-        flex: 10,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        paddingBottom: 16
+        height: '100%'
     },
     imageStyle: {
-        flex: 4,
+        maxHeight: '40%',
         alignSelf: 'center',
+        marginVertical: 20,
         resizeMode: 'center'
     },
     formStyle: {
-        flex: 1,
         alignSelf: 'center',
         minWidth: '80%',
-        paddingBottom: 8,
+        paddingBottom: 24,
         marginLeft: 40,
         marginRight: 50
     },
@@ -332,7 +353,6 @@ const styles = StyleSheet.create({
         marginLeft: 26,
     },
     infoGroup: {
-        flex: 1.6,
         flexDirection: 'column',
         justifyContent: 'space-evenly'
     },
@@ -342,16 +362,18 @@ const styles = StyleSheet.create({
         marginBottom: 4
     },
     buttonGroup: {
-        paddingTop: 40,
-        flex: 1,
+        paddingTop: 38,
         flexDirection: 'row',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
+        marginHorizontal: -20
     },
     buttonText: {
         color: 'white'
     },
     inputAndTextContainer: {
-        flex: 3,
+        height: '52%',
         paddingHorizontal: 32,
+        justifyContent: 'flex-end',
+        paddingVertical: 32
     }
 });
