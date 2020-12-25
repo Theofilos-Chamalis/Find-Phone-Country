@@ -16,12 +16,11 @@ interface homeTabState {
     phoneType?: string
 }
 
-export default class HomeTab extends PureComponent {
+export default class HomeTab extends PureComponent<{}, homeTabState> {
     private keyboardDidShowListener: any;
     private keyboardDidHideListener: any;
     private willBlurSubscription: any;
     private willFocusSubscription: any;
-    private state: homeTabState
 
     constructor(props: any) {
         super(props);
@@ -50,12 +49,10 @@ export default class HomeTab extends PureComponent {
     };
 
     _keyboardDidShow = () => {
-        this.setState({keyboardActive: true});
         this.toggleTabBar(false);
     };
 
     _keyboardDidHide = () => {
-        this.setState({keyboardActive: false});
         this.toggleTabBar(true);
     };
 
