@@ -1,4 +1,5 @@
-import {Button, Icon, Text} from 'native-base';
+// @ts-ignore
+import {Button, Icon, Text} from 'native-base/src';
 import React, {PureComponent} from 'react';
 import {
     Alert,

@@ -1,6 +1,7 @@
 import React from 'react';
 import {TouchableWithoutFeedback, View} from 'react-native';
-import {Icon} from 'native-base';
+// @ts-ignore
+import {Icon} from 'native-base/src';
 
 const backButton = (navigation: any) => {
     if (navigation.state.routeName === 'About') {

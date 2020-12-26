@@ -1,5 +1,6 @@
 import React from 'react';
-import {Icon} from 'native-base';
+// @ts-ignore
+import {Icon} from 'native-base/src';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 
 import HomeTab from '../../screens/tabs/HomeTab';
