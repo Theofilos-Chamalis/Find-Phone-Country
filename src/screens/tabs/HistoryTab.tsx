@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {StatusBar, StyleSheet, Text, View} from 'react-native';
 import Timeline from 'react-native-timeline-flatlist';
-import format from 'date-fns/format';
+import dayjs from 'dayjs';
 
 import {getAllRecords} from '../../db/asyncStorageProvider';
 
@@ -42,8 +42,8 @@ export default class HistoryTab extends PureComponent {
     fillTimeline = (data: [string, (string | null)][]) => {
         const timelineArray = data.map((call, index) => {
             const timestamp = Number(call[0]);
-            const dateString = (format(new Date(timestamp), 'dd/MM')).toString();
-            const timeString = (format(new Date(timestamp), 'hh:mm')).toString();
+            const dateString = dayjs(new Date(timestamp)).format('DD/MM');
+            const timeString = dayjs(new Date(timestamp)).format('HH:mm');
 
             const phone = JSON.parse(call[1] as string).phone;
             const carrier = JSON.parse(call[1] as string).carrier;
