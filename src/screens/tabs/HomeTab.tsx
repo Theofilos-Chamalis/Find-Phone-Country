@@ -252,39 +252,42 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
 
     renderButtonGroup = () => {
         return (
-            <View style={styles.buttonGroup}>
+            <View style={styles.buttonGroupContainer}>
+                <View style={styles.buttonGroup}>
+                    <Button
+                        iconLeft
+                        light
+                        rounded
+                        bordered
+                        onPress={() => {
+                            this.onLoadContacts().catch();
+                        }}>
+                        <Icon name="people-outline" style={styles.buttonText}/>
+                        <Text style={styles.buttonText}>LOAD</Text>
+                    </Button>
+                    <Button
+                        iconLeft
+                        light
+                        rounded
+                        bordered
+                        onPress={() => {
+                            this.onClearFormNumber();
+                        }}>
+                        <Icon name="trash" style={styles.buttonText}/>
+                        <Text style={styles.buttonText}>CLEAR</Text>
+                    </Button>
+                </View>
                 <Button
                     iconLeft
                     light
                     rounded
                     bordered
-                    onPress={() => {
-                        this.onLoadContacts().catch();
-                    }}>
-                    <Icon name="people-outline" style={styles.buttonText}/>
-                    <Text style={styles.buttonText}>LOAD</Text>
-                </Button>
-                <Button
-                    iconLeft
-                    light
-                    rounded
-                    bordered
+                    block
                     onPress={() => {
                         this.onSubmitFormNumber();
                     }}>
                     <Icon name="search" style={styles.buttonText}/>
                     <Text style={styles.buttonText}>FIND</Text>
-                </Button>
-                <Button
-                    iconLeft
-                    light
-                    rounded
-                    bordered
-                    onPress={() => {
-                        this.onClearFormNumber();
-                    }}>
-                    <Icon name="trash" style={styles.buttonText}/>
-                    <Text style={styles.buttonText}>CLEAR</Text>
                 </Button>
             </View>
         );
@@ -330,13 +333,14 @@ const styles = StyleSheet.create({
     imageStyle: {
         maxHeight: '40%',
         alignSelf: 'center',
-        marginVertical: 20,
+        marginTop: 8,
+        marginBottom: 12,
         resizeMode: 'center'
     },
     formStyle: {
         alignSelf: 'center',
-        minWidth: '80%',
-        paddingBottom: 24,
+        minWidth: '90%',
+        paddingBottom: 16,
         marginLeft: 40,
         marginRight: 50
     },
@@ -358,7 +362,8 @@ const styles = StyleSheet.create({
     },
     infoGroup: {
         flexDirection: 'column',
-        justifyContent: 'space-evenly'
+        height: '30%',
+        marginBottom: 8,
     },
     infoRow: {
         flexDirection: 'row',
@@ -366,10 +371,13 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     buttonGroup: {
-        paddingTop: 38,
+        marginBottom: 12,
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        marginHorizontal: -20
+        justifyContent: 'space-between',
+    },
+    buttonGroupContainer: {
+        justifyContent: 'center',
+        marginTop: 48,
     },
     buttonText: {
         color: 'white'
@@ -378,11 +386,12 @@ const styles = StyleSheet.create({
         height: '52%',
         paddingHorizontal: 32,
         justifyContent: 'flex-end',
-        paddingVertical: 32
+        paddingTop: 32
     },
     inputAndTextContainerWithKeyboard: {
         height: '100%',
         paddingHorizontal: 32,
         justifyContent: 'center',
+        paddingVertical: 32
     }
 });

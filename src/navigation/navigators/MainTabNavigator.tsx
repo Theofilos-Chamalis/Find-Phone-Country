@@ -13,7 +13,7 @@ const MainTabNavigator = createMaterialTopTabNavigator(
             navigationOptions: {
                 tabBarLabel: 'Home',
                 tabBarIcon: ({tintColor}) => (
-                    <Icon name="ios-home" style={{color: tintColor}}/>
+                    <Icon name="ios-home" style={{color: tintColor, width: '140%'}}/>
                 )
             }
         },
@@ -22,7 +22,7 @@ const MainTabNavigator = createMaterialTopTabNavigator(
             navigationOptions: {
                 tabBarLabel: 'History',
                 tabBarIcon: ({tintColor}) => (
-                    <Icon name="ios-time" style={{color: tintColor}}/>
+                    <Icon name="ios-time" style={{color: tintColor, width: '140%'}}/>
                 )
             }
         }
@@ -41,7 +41,7 @@ const MainTabNavigator = createMaterialTopTabNavigator(
             },
             style: {
                 backgroundColor: '#B71C1C',
-                height: '12%',
+                height: '11.5%',
                 borderTopWidth: 0
             },
             activeTintColor: '#ffffff',
