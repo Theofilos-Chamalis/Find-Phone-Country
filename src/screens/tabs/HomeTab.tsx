@@ -286,8 +286,8 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
                     onPress={() => {
                         this.onSubmitFormNumber();
                     }}>
-                    <Icon name="search" style={styles.buttonText}/>
-                    <Text style={styles.buttonText}>FIND</Text>
+                    <Icon name="search" style={[styles.buttonFindIcon]}/>
+                    <Text style={styles.buttonFindText}>FIND</Text>
                 </Button>
             </View>
         );
@@ -381,6 +381,16 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: 'white'
+    },
+    buttonFindText: {
+        color: 'white',
+        textAlign: 'center',
+        paddingRight: 50,
+        flexGrow: 500
+    },
+    buttonFindIcon: {
+        color: 'white',
+        flexShrink: 1,
     },
     inputAndTextContainer: {
         height: '52%',
