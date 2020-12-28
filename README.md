@@ -42,7 +42,7 @@ Downloads
 git clone https://github.com/Theofilos-Chamalis/Find-Phone-Country.git
 
 # Install dependencies
-cd Find-Phone-Country && yarn install
+cd Find-Phone-Country && npm install
 
 # Register your personal API keys at numverify.com and create a keys file
 Directory: api/keys.ts
@@ -50,5 +50,5 @@ Directory: api/keys.ts
 
 ```bash
 # To run the development server
-yarn run start
+npm run dev
 ```
