@@ -262,7 +262,7 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
                         onPress={() => {
                             this.onLoadContacts().catch();
                         }}>
-                        <Icon name="people-outline" style={styles.buttonText}/>
+                        <Icon name="people-sharp" style={styles.buttonText}/>
                         <Text style={styles.buttonText}>LOAD</Text>
                     </Button>
                     <Button
@@ -273,7 +273,7 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
                         onPress={() => {
                             this.onClearFormNumber();
                         }}>
-                        <Icon name="trash" style={styles.buttonText}/>
+                        <Icon name="trash-bin" style={styles.buttonText}/>
                         <Text style={styles.buttonText}>CLEAR</Text>
                     </Button>
                 </View>
@@ -286,7 +286,7 @@ export default class HomeTab extends PureComponent<{}, homeTabState> {
                     onPress={() => {
                         this.onSubmitFormNumber();
                     }}>
-                    <Icon name="search" style={[styles.buttonFindIcon]}/>
+                    <Icon name="location-sharp" style={[styles.buttonFindIcon]}/>
                     <Text style={styles.buttonFindText}>FIND</Text>
                 </Button>
             </View>
