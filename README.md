@@ -28,10 +28,10 @@ Downloads
 
 ## Screenshots
 
-![Alt text](https://lh3.googleusercontent.com/QHKcGjB1coyKFnoMMlMDKFZsxb5b2QIPDGkVRa7l2B1iYPpyqAqKp7EwNM47eivWmtQ=w720-h380-rw "Login Screen") 
-![Alt text](https://lh3.googleusercontent.com/jPr6XrHdUqLu-cHzY_Dx4Rx1y7EyP2j-VIMmVrLAYwCVcMu8icfUCZI4-ebSyZIl11U=w720-h380-rw "Server Screen") 
-![Alt text](https://lh3.googleusercontent.com/p_BwjT4Qvb3m_a8J7jW8HLPeI4jSLh84FT5__dJQUP6oIiObLpujtze7YMP9B-QOHwA=w720-h380-rw "Mapview Screen") 
-![Alt text](https://lh3.googleusercontent.com/K5ey4JjmU2UO9Vph4RSq7qnqSWjkw9zt0Cg9S8-wRQjmGXVLg2IRvzN8LgcKLS5oh1lu=w720-h380-rw "Chat Screen")
+![Alt text](https://play-lh.googleusercontent.com/dKus1kD1vmTILiSwSzPeOHpN9gjEOzFYZSwUieUPaI3KrW10WpBsyVO9hGyCe-1XMco=w720-h380-rw "Screenshot0") 
+![Alt text](https://play-lh.googleusercontent.com/ASm9snd3PHLPWEhWV3sIoNMOxi7GcU7aSi_ml3MrKLX4em7XqwuL1-hjxsOev90HuNY=w720-h380-rw "Screenshot1")
+![Alt text](https://play-lh.googleusercontent.com/jggLMFLB0FUAcf6ZC76INiAPK8ktWxO598oiW23vbHF1NGzhlOEdoB6b0cDrqRc7pzQ=w720-h380-rw "Screenshot2")
+![Alt text](https://play-lh.googleusercontent.com/TtQH4ZJgrUxpzqCY9P6VgIc2w86JrT6TipciVU1C3_JXn6tXlz04X0WLBIgwFtJUVg=w720-h380-rw "Screenshot3")
 <br/>
 <br/>
 
