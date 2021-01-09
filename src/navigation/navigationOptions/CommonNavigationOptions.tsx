@@ -1,7 +1,7 @@
 import React from 'react';
-import {TouchableWithoutFeedback, View} from 'react-native';
+import { TouchableWithoutFeedback, View } from 'react-native';
 // @ts-ignore
-import {Icon} from 'native-base/src';
+import { Icon } from 'native-base/src';
 
 const backButton = (navigation: any) => {
     if (navigation.state.routeName === 'About') {
@@ -9,15 +9,15 @@ const backButton = (navigation: any) => {
             <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
                 <Icon
                     name="ios-arrow-back"
-                    style={{paddingLeft: 16, color: 'white'}}
+                    style={{ paddingLeft: 16, color: 'white' }}
                 />
             </TouchableWithoutFeedback>
         );
     }
-    return <View/>;
+    return <View />;
 };
 
-const navOptions = ({navigation}: any) => {
+const navOptions = ({ navigation }: any) => {
     return {
         headerTitle: 'Find Phone Country',
         headerStyle: {
@@ -29,18 +29,19 @@ const navOptions = ({navigation}: any) => {
             justifyContent: 'space-between',
             alignSelf: 'center',
             textAlign: 'center',
-            marginLeft: 16,
+            marginLeft: navigation?.state?.routeName === 'About' ? -34 : 16,
             flex: 1,
             flexGrow: 1
         },
-        headerRight: () => (
-            <TouchableWithoutFeedback onPress={() => navigation.navigate('About')}>
-                <Icon
-                    name="ios-help-circle-outline"
-                    style={{paddingRight: 16, color: 'white'}}
-                />
-            </TouchableWithoutFeedback>
-        ),
+        headerRight: () =>
+            navigation?.state?.routeName === 'About' ? null : (
+                <TouchableWithoutFeedback onPress={() => navigation.navigate('About')}>
+                    <Icon
+                        name="ios-help-circle-outline"
+                        style={{ paddingRight: 16, color: 'white' }}
+                    />
+                </TouchableWithoutFeedback>
+            ),
         headerLeft: () => backButton(navigation)
     };
 };
