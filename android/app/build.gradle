@@ -210,7 +210,7 @@ task copyDownloadableDepsToLibs(type: Copy) {
 
 configurations.all {
     resolutionStrategy {
-        force "com.facebook.soloader:soloader:0.9.0"
+        force "com.facebook.soloader:soloader:0.10.1"
     }
 }
 
