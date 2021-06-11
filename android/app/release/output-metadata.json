@@ -5,12 +5,12 @@
     "kind": "Directory"
   },
   "applicationId": "com.theofilos.chamalis.findphonecountry",
-  "variantName": "processReleaseResources",
+  "variantName": "release",
   "elements": [
     {
       "type": "UNIVERSAL",
       "filters": [],
-      "versionCode": 21041010,
+      "versionCode": 21061111,
       "versionName": "4.1.2",
       "outputFile": "app-universal-release.apk"
     },
@@ -22,33 +22,9 @@
           "value": "x86"
         }
       ],
-      "versionCode": 23138162,
+      "versionCode": 23158263,
       "versionName": "4.1.2",
       "outputFile": "app-x86-release.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "x86_64"
-        }
-      ],
-      "versionCode": 25235314,
-      "versionName": "4.1.2",
-      "outputFile": "app-x86_64-release.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "arm64-v8a"
-        }
-      ],
-      "versionCode": 24186738,
-      "versionName": "4.1.2",
-      "outputFile": "app-arm64-v8a-release.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -58,9 +34,33 @@
           "value": "armeabi-v7a"
         }
       ],
-      "versionCode": 22089586,
+      "versionCode": 22109687,
       "versionName": "4.1.2",
       "outputFile": "app-armeabi-v7a-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "arm64-v8a"
+        }
+      ],
+      "versionCode": 24206839,
+      "versionName": "4.1.2",
+      "outputFile": "app-arm64-v8a-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "x86_64"
+        }
+      ],
+      "versionCode": 25255415,
+      "versionName": "4.1.2",
+      "outputFile": "app-x86_64-release.apk"
     }
   ]
 }
