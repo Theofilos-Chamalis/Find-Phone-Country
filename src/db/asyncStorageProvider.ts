@@ -1,56 +1,61 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
-export const saveRecord = async (payload: { carrier: string; phoneType: string; phone: string; countryOfOrigin: string }) => {
-    try {
-        await AsyncStorage.setItem(
-            new Date().getTime().toString(),
-            JSON.stringify(payload)
-        );
-    } catch (error) {
-        console.log(`Error storing the data: ${error}`);
-    }
+export const saveRecord = async (payload: {
+  carrier: string;
+  phoneType: string;
+  phone: string;
+  countryOfOrigin: string;
+}) => {
+  try {
+    await AsyncStorage.setItem(new Date().getTime().toString(), JSON.stringify(payload));
+  } catch (error) {
+    console.log(`Error storing the data: ${error}`);
+  }
 };
 
 export const getRecord = async (key: string) => {
-    try {
-        return (await AsyncStorage.getItem(key)) || '';
-    } catch (error) {
-        console.log(`Error retrieving single record: ${error}`);
-    }
+  try {
+    return (await AsyncStorage.getItem(key)) || '';
+  } catch (error) {
+    console.log(`Error retrieving single record: ${error}`);
+  }
 };
 
 export const deleteRecord = async (key: string) => {
-    try {
-        await AsyncStorage.removeItem(key);
-    } catch (error) {
-        console.log(`Error deleting single record: ${error}`);
-    }
+  try {
+    await AsyncStorage.removeItem(key);
+  } catch (error) {
+    console.log(`Error deleting single record: ${error}`);
+  }
 };
 
 export const getAllRecordKeys = async () => {
-    try {
-        return await AsyncStorage.getAllKeys();
-    } catch (error) {
-        console.log(`Error retrieving all keys: ${error}`);
-    }
+  try {
+    return await AsyncStorage.getAllKeys();
+  } catch (error) {
+    console.log(`Error retrieving all keys: ${error}`);
+  }
 };
 
 export const getAllRecords = async () => {
-    return getAllRecordKeys()
-        .then((keysArray: string[] | undefined) => {
-            return keysArray && AsyncStorage.multiGet(keysArray, (err, resultArray) => {
-                err ? console.log(`Error retrieving all items: ${err}`) : resultArray;
-            });
+  return getAllRecordKeys()
+    .then((keysArray: string[] | undefined) => {
+      return (
+        keysArray &&
+        AsyncStorage.multiGet(keysArray, (err, resultArray) => {
+          err ? console.log(`Error retrieving all items: ${err}`) : resultArray;
         })
-        .catch((err) => {
-            console.log(`Error getting all records: ${err}`);
-        });
+      );
+    })
+    .catch(err => {
+      console.log(`Error getting all records: ${err}`);
+    });
 };
 
 export const clearAllRecords = async () => {
-    try {
-        await AsyncStorage.clear();
-    } catch (error) {
-        console.log(`Error clearing all records: ${error}`);
-    }
+  try {
+    await AsyncStorage.clear();
+  } catch (error) {
+    console.log(`Error clearing all records: ${error}`);
+  }
 };
